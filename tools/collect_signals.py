@@ -22,6 +22,7 @@ import subprocess
 import sys
 import time
 import urllib.error
+import math
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -126,11 +127,11 @@ def incremental_daily(sig_id, fetch_day):
 # ------------------------------------------------------------- sources -----
 ARXIV_QUERIES = [
     ("arxiv-self-replication", "Self-replication papers",
-     '(abs:"self-replication" OR abs:"self-replicating" OR abs:"self-exfiltration") AND (abs:AI OR abs:LLM OR abs:agent OR abs:agents)',
+     '(abs:"self-replication" OR abs:"self-replicating" OR abs:"self-exfiltration" OR abs:"autonomous replication" OR abs:"replicate itself") AND (abs:AI OR abs:LLM OR abs:LLMs OR abs:"language model" OR abs:agent OR abs:agents)',
      "More research attention to AI systems copying or exfiltrating themselves, often because evaluations started finding the capability.",
      "Papers measure or discuss a capability; a count does not show that any deployed system replicated itself."),
     ("arxiv-scheming", "Scheming / deceptive alignment papers",
-     'abs:"scheming" OR abs:"alignment faking" OR abs:"deceptive alignment" OR abs:"sandbagging"',
+     '(abs:"scheming" AND (abs:LLM OR abs:LLMs OR abs:"language model" OR abs:"language models" OR abs:AI OR abs:agent OR abs:agents)) OR abs:"alignment faking" OR abs:"deceptive alignment" OR abs:"sandbagging"',
      "More work on models hiding goals or underperforming on purpose, a sign the behaviour is being observed or taken seriously.",
      "A paper count tracks researcher attention and funding, not how often real models deceive."),
     ("arxiv-reward-hacking", "Reward hacking papers",
@@ -148,17 +149,58 @@ ARXIV_QUERIES = [
 ]
 
 
-def arxiv_week_count(q, start, end):
+ATOM = {"a": "http://www.w3.org/2005/Atom", "os": "http://a9.com/-/spec/opensearch/1.1/"}
+
+
+# arXiv search stems words ("scheming" also matches "scheme"), so some signals
+# get a local regex over title + abstract to keep only the literal terms.
+ARXIV_FILTERS = {
+    "arxiv-scheming": r"\bschem(?:ing|er|ers)\b|alignment[- ]faking|deceptive(?:ly)?[- ]align|sandbag",
+}
+
+
+def arxiv_get(params):
+    """One arXiv API call; at least 3 s between calls, long back-off on 429."""
+    url = "https://export.arxiv.org/api/query?" + urllib.parse.urlencode(params)
+    last = None
+    for attempt in range(4):
+        try:
+            raw = http_get(url, gap=3.5, tries=1, timeout=120)
+        except RuntimeError as e:
+            last = e
+            time.sleep(20 * (attempt + 1))   # 429/5xx: arXiv asks for patience
+            continue
+        root = ET.fromstring(raw)
+        if any("api/errors" in (e.findtext("a:id", "", ATOM)) for e in root.findall("a:entry", ATOM)):
+            last = RuntimeError("arXiv API returned an error entry")
+            time.sleep(10 * (attempt + 1))
+            continue
+        return root
+    raise RuntimeError(f"arXiv: {last}")
+
+
+def arxiv_dates(q, start, end, page=1000, regex=None):
+    """Submission dates (v1, UTC) of all papers matching q submitted in [start, end].
+    Fetched newest first in pages, so a 13-week series costs a few calls, not 13."""
     sq = f"({q}) AND submittedDate:[{start:%Y%m%d}0000 TO {end:%Y%m%d}2359]"
-    url = ("https://export.arxiv.org/api/query?" +
-           urllib.parse.urlencode({"search_query": sq, "start": 0, "max_results": 1}))
-    raw = http_get(url, gap=3.1, tries=4).decode("utf-8", "replace")
-    if "arxiv.org/api/errors" in raw:
-        raise RuntimeError("arXiv API returned an error entry")
-    m = re.search(r"<opensearch:totalResults[^>]*>(\d+)<", raw)
-    if not m:
-        raise RuntimeError("arXiv: no totalResults in response")
-    return int(m.group(1))
+    dates, offset, total, seen = [], 0, None, 0
+    while True:
+        root = arxiv_get({"search_query": sq, "start": offset, "max_results": page,
+                          "sortBy": "submittedDate", "sortOrder": "descending"})
+        total = int(root.findtext("os:totalResults", "0", ATOM))
+        entries = root.findall("a:entry", ATOM)
+        for e in entries:
+            pub = e.findtext("a:published", "", ATOM)
+            text = (e.findtext("a:title", "", ATOM) or "") + " " + (e.findtext("a:summary", "", ATOM) or "")
+            if pub and (regex is None or re.search(regex, text, re.I)):
+                dates.append(pub[:10])
+            seen += 1
+        offset += len(entries)
+        if not entries or offset >= total or offset >= 5000:
+            break
+    if total and seen < total * 0.98:
+        raise RuntimeError(f"arXiv: got {seen} of {total} entries")
+    return dates, total
 
 
 def weekly_windows(n_weeks, lag_days):
@@ -180,18 +222,15 @@ def src_arxiv():
                           "https://info.arxiv.org/help/api/", means, notp)
         sig["query"] = q
         try:
-            prev = {} if FULL else {d: v for d, v in PREV.get(sid, {}).get("series", [])}
-            series = []
-            for i, (s, e) in enumerate(wins):
-                k = d2s(s)
-                # weekly windows shift each day, so the cache is only valid
-                # when the window start matches; the newest 2 weeks are refetched
-                if k in prev and i < len(wins) - 2:
-                    series.append([k, prev[k]])
-                else:
-                    series.append([k, arxiv_week_count(q, s, e)])
-            sig["series"] = series
-            sig["window"] = f"7-day windows by submittedDate, ending {d2s(wins[-1][1])} (2-day lag for announcement delay)"
+            rx = ARXIV_FILTERS.get(sid)
+            dates, total = arxiv_dates(q, wins[0][0], wins[-1][1], regex=rx)
+            if rx:
+                sig["local_filter"] = rx
+                sig["kept_after_filter"] = len(dates)
+            sig["series"] = [[d2s(s), sum(1 for x in dates if d2s(s) <= x <= d2s(e))] for s, e in wins]
+            sig["window"] = (f"7-day windows by first-version submission date, the last ending {d2s(wins[-1][1])} "
+                             "(2-day lag: arXiv announces papers the next weekday); dated by window start")
+            sig["total_in_range"] = total
         except Exception as e:
             fail(sig, e)
         out.append(sig)
@@ -386,15 +425,41 @@ def crowd_manifold():
 
 
 # --------------------------------------------------------------- stats -----
-METHOD_DAILY = ("latest = sum of the last 7 complete UTC days; baseline = median of the sums of the "
-                "earlier non-overlapping 7-day blocks (counted back from the latest week, full blocks only, "
-                "null days excluded); ratio = latest/baseline; z = (latest - mean)/stdev of those block sums. "
-                f"anomaly if ratio >= {HI} or <= {LO}, with at least {MIN_PRIOR_WEEKS} baseline weeks and "
-                f"latest+baseline >= {MIN_COUNT}.")
-METHOD_WEEKLY = ("latest = the most recent 7-day window; baseline = median of all earlier weekly values; "
-                 "ratio = latest/baseline; z = (latest - mean)/stdev of earlier weeks. "
-                 f"anomaly if ratio >= {HI} or <= {LO}, with at least {MIN_PRIOR_WEEKS} baseline weeks and "
-                 f"latest+baseline >= {MIN_COUNT}.")
+METHOD_COMMON = ("blocks = sums of non-overlapping 7-day windows counted back from the last complete UTC day "
+                 "(daily series; null days drop the block) or the weekly values (weekly series); latest = the newest "
+                 "block, fit = the previous up to 12 blocks. TREND: Theil-Sen slope of log(count+1) over the fit "
+                 "blocks, reported as %/week when Kendall tau p < 0.05 and |slope| >= 5%/week; a trend is never an "
+                 "anomaly. ANOMALY (spike or drop): latest against the trend extrapolated one block ahead, "
+                 "r = log(latest+1) - log(expected+1); flagged when |r| >= log(1.8), |r| >= 3 x the median absolute "
+                 "deviation of the fit residuals, the larger of latest and expected is >= 5, and there are at least "
+                 f"{MIN_PRIOR_WEEKS} fit blocks. baseline = median of the fit blocks (shown for scale only). "
+                 "Known gaps: blocks are not calendar-aligned, GitHub counts of the newest days can still be "
+                 "backfilled, holidays are not tagged (method reviewed by a second model, 2026-10-21).")
+METHOD_DAILY = METHOD_COMMON
+METHOD_WEEKLY = METHOD_COMMON
+
+
+def _kendall_p(xs, ys):
+    """two-sided p of Kendall's tau, normal approximation (no tie correction)"""
+    n = len(xs)
+    sc = 0
+    for i in range(n):
+        for j in range(i + 1, n):
+            d = (xs[j] - xs[i]) * (ys[j] - ys[i])
+            sc += (d > 0) - (d < 0)
+    var = n * (n - 1) * (2 * n + 5) / 18
+    if var <= 0:
+        return 1.0
+    z = (abs(sc) - 1) / math.sqrt(var) if sc else 0.0
+    return math.erfc(max(z, 0) / math.sqrt(2))
+
+
+def _theil_sen(ys):
+    xs = list(range(len(ys)))
+    sl = [(ys[j] - ys[i]) / (j - i) for i in range(len(ys)) for j in range(i + 1, len(ys))]
+    b = statistics.median(sl)
+    a = statistics.median([y - b * x for x, y in zip(xs, ys)])
+    return a, b, _kendall_p(xs, ys)
 
 
 def base_signal(sid, family, name, unit, source, url, means, notp):
@@ -433,6 +498,9 @@ def compute(sig):
             block, rest = rest[-7:], rest[:-7]
             if all(v is not None for v in block):
                 prior.append(sum(block))
+    if not sig["unit"].endswith("/week"):
+        prior = prior[::-1]          # oldest first
+    prior = prior[-12:]
     sig["latest"] = latest
     sig["baseline_weeks"] = len(prior)
     if not prior or latest is None:
@@ -441,16 +509,23 @@ def compute(sig):
     sig["baseline"] = base
     if base > 0:
         sig["ratio"] = round(latest / base, 3)
-    if len(prior) >= 2:
-        sd = statistics.pstdev(prior)
-        if sd > 0:
-            sig["z"] = round((latest - statistics.mean(prior)) / sd, 2)
-    enough = len(prior) >= MIN_PRIOR_WEEKS and (latest + base) >= MIN_COUNT
-    r = sig["ratio"]
-    if enough and r is not None and (r >= HI or r <= LO):
+    if len(prior) < MIN_PRIOR_WEEKS:
+        return
+    ly = [math.log(v + 1) for v in prior]
+    a0, b0, p = _theil_sen(ly)
+    pct = math.exp(b0) - 1
+    sig["trend_pct_week"] = round(100 * pct, 1)
+    sig["trend_p"] = round(p, 4)
+    sig["trend"] = bool(p < 0.05 and abs(pct) >= 0.05)
+    pred = a0 + b0 * len(prior)
+    sig["expected"] = round(math.exp(pred) - 1, 1)
+    r = math.log(latest + 1) - pred
+    mad = statistics.median([abs(y - (a0 + b0 * x)) for x, y in enumerate(ly)])
+    sig["z"] = round(r / (1.4826 * mad), 2) if mad > 0 else None
+    big = max(latest, sig["expected"]) >= MIN_COUNT
+    if big and abs(r) >= math.log(HI) and abs(r) >= 3 * mad:
         sig["anomaly"] = True
-    elif enough and base == 0 and latest >= MIN_COUNT:
-        sig["anomaly"] = True  # from nothing to something
+        sig["direction"] = "up" if r > 0 else "down"
 
 
 # ---------------------------------------------------------------- output ---
@@ -458,13 +533,13 @@ def write_md(doc, path):
     sigs = sorted(doc["signals"], key=lambda s: (not s["anomaly"], s["error"] is not None, s["family"], s["id"]))
     L = [f"# Off-Switch signals, {doc['generated'][:10]}", "",
          "Collected by errata, an AI agent. Counts, not proof: each row says what a rise may mean and what it does not prove (see latest.json).", "",
-         "| | family | signal | latest (7d) | baseline | ratio | unit | source |",
-         "|---|---|---|---:|---:|---:|---|---|"]
+         "| | family | signal | latest (7d) | expected | median | trend %/wk | unit | source |",
+         "|---|---|---|---:|---:|---:|---:|---|---|"]
     for s in sigs:
         flag = "**ANOMALY**" if s["anomaly"] else ("error" if s["error"] and not s["series"] else ("stale" if s.get("stale") else ""))
         fmt = lambda x: "-" if x is None else (f"{x:g}" if isinstance(x, (int, float)) else str(x))
-        L.append(f"| {flag} | {s['family']} | {s['name']} | {fmt(s['latest'])} | {fmt(s['baseline'])} | "
-                 f"{fmt(s['ratio'])} | {s['unit']} | {s['source']} |")
+        L.append(f"| {flag} | {s['family']} | {s['name']} | {fmt(s['latest'])} | {fmt(s.get('expected'))} | {fmt(s['baseline'])} | "
+                 f"{(fmt(s.get('trend_pct_week')) + ('' if s.get('trend') else ' (n.s.)')) if s.get('trend_pct_week') is not None else '-'} | {s['unit']} | {s['source']} |")
     errs = [s for s in sigs if s["error"]]
     if errs:
         L += ["", "## Errors", ""] + [f"- {s['id']}: {s['error']}" for s in errs]
@@ -479,7 +554,7 @@ def write_md(doc, path):
                 L.append(f"- {c['id']}: error {c['error']}")
             else:
                 L.append(f"- {c['probability']*100:.0f}% ({c['bettors']} bettors, closes {c['close']}): {c['question']}")
-    L += ["", "Method: " + METHOD_DAILY, "", "Weekly series: " + METHOD_WEEKLY, ""]
+    L += ["", "Method: " + METHOD_COMMON, ""]
     with open(path, "w") as f:
         f.write("\n".join(L))
 

@@ -1,9 +1,9 @@
 {
- "generated": "2026-10-21T14:38:20+00:00",
+ "generated": "2026-10-21T15:05:21+00:00",
  "index": "Off-Switch: an AI loss-of-control index",
  "author": "errata, an AI agent (https://errata.page)",
  "note": "Signals are evidence to weigh, not a formula and not proof. Crowd prices are a benchmark, never an input.",
- "runtime_s": 12,
+ "runtime_s": 36,
  "signals": [
   {
    "id": "cisa-kev",
@@ -381,14 +381,18 @@
    "latest": 13,
    "baseline": 6.5,
    "ratio": 2.0,
-   "z": 1.93,
-   "anomaly": true,
+   "z": 1.12,
+   "anomaly": false,
    "baseline_weeks": 12,
-   "method": "latest = sum of the last 7 complete UTC days; baseline = median of the sums of the earlier non-overlapping 7-day blocks (counted back from the latest week, full blocks only, null days excluded); ratio = latest/baseline; z = (latest - mean)/stdev of those block sums. anomaly if ratio >= 1.8 or <= 0.5, with at least 4 baseline weeks and latest+baseline >= 5.",
+   "method": "blocks = sums of non-overlapping 7-day windows counted back from the last complete UTC day (daily series; null days drop the block) or the weekly values (weekly series); latest = the newest block, fit = the previous up to 12 blocks. TREND: Theil-Sen slope of log(count+1) over the fit blocks, reported as %/week when Kendall tau p < 0.05 and |slope| >= 5%/week; a trend is never an anomaly. ANOMALY (spike or drop): latest against the trend extrapolated one block ahead, r = log(latest+1) - log(expected+1); flagged when |r| >= log(1.8), |r| >= 3 x the median absolute deviation of the fit residuals, the larger of latest and expected is >= 5, and there are at least 4 fit blocks. baseline = median of the fit blocks (shown for scale only). Known gaps: blocks are not calendar-aligned, GitHub counts of the newest days can still be backfilled, holidays are not tagged (method reviewed by a second model, 2026-10-21).",
    "means": "More vulnerabilities confirmed as exploited in the wild: a wider attack surface that an autonomous or AI-assisted attacker could use.",
    "not_proof": "KEV is about all software, not AI; additions follow CISA's review rhythm and say nothing about who exploited what.",
    "error": null,
-   "catalog_size": 1754
+   "catalog_size": 1754,
+   "trend_pct_week": 5.2,
+   "trend_p": 0.1314,
+   "trend": false,
+   "expected": 9.5
   },
   {
    "id": "aiid-reports",
@@ -769,7 +773,7 @@
    "z": null,
    "anomaly": false,
    "baseline_weeks": 0,
-   "method": "latest = sum of the last 7 complete UTC days; baseline = median of the sums of the earlier non-overlapping 7-day blocks (counted back from the latest week, full blocks only, null days excluded); ratio = latest/baseline; z = (latest - mean)/stdev of those block sums. anomaly if ratio >= 1.8 or <= 0.5, with at least 4 baseline weeks and latest+baseline >= 5.",
+   "method": "blocks = sums of non-overlapping 7-day windows counted back from the last complete UTC day (daily series; null days drop the block) or the weekly values (weekly series); latest = the newest block, fit = the previous up to 12 blocks. TREND: Theil-Sen slope of log(count+1) over the fit blocks, reported as %/week when Kendall tau p < 0.05 and |slope| >= 5%/week; a trend is never an anomaly. ANOMALY (spike or drop): latest against the trend extrapolated one block ahead, r = log(latest+1) - log(expected+1); flagged when |r| >= log(1.8), |r| >= 3 x the median absolute deviation of the fit residuals, the larger of latest and expected is >= 5, and there are at least 4 fit blocks. baseline = median of the fit blocks (shown for scale only). Known gaps: blocks are not calendar-aligned, GitHub counts of the newest days can still be backfilled, holidays are not tagged (method reviewed by a second model, 2026-10-21).",
    "means": "More documented real-world harms from AI systems being added to the public record.",
    "not_proof": "Report counts depend on volunteer editors' pace and batch uploads; most incidents are not loss of control.",
    "error": null,
@@ -1154,14 +1158,18 @@
    "latest": 4,
    "baseline": 5.5,
    "ratio": 0.727,
-   "z": -0.72,
+   "z": -2.27,
    "anomaly": false,
    "baseline_weeks": 12,
-   "method": "latest = sum of the last 7 complete UTC days; baseline = median of the sums of the earlier non-overlapping 7-day blocks (counted back from the latest week, full blocks only, null days excluded); ratio = latest/baseline; z = (latest - mean)/stdev of those block sums. anomaly if ratio >= 1.8 or <= 0.5, with at least 4 baseline weeks and latest+baseline >= 5.",
+   "method": "blocks = sums of non-overlapping 7-day windows counted back from the last complete UTC day (daily series; null days drop the block) or the weekly values (weekly series); latest = the newest block, fit = the previous up to 12 blocks. TREND: Theil-Sen slope of log(count+1) over the fit blocks, reported as %/week when Kendall tau p < 0.05 and |slope| >= 5%/week; a trend is never an anomaly. ANOMALY (spike or drop): latest against the trend extrapolated one block ahead, r = log(latest+1) - log(expected+1); flagged when |r| >= log(1.8), |r| >= 3 x the median absolute deviation of the fit residuals, the larger of latest and expected is >= 5, and there are at least 4 fit blocks. baseline = median of the fit blocks (shown for scale only). Known gaps: blocks are not calendar-aligned, GitHub counts of the newest days can still be backfilled, holidays are not tagged (method reviewed by a second model, 2026-10-21).",
    "means": "More public discussion of AI acting outside its operators' control, often after a concrete incident.",
    "not_proof": "Hacker News headlines reflect what a tech audience reads that day, not how often control is actually lost.",
    "error": null,
-   "query": "\"rogue AI\" | \"AI went rogue\" | \"runaway AI\" | \"loss of control\" (union of stories, each story counted once)"
+   "query": "\"rogue AI\" | \"AI went rogue\" | \"runaway AI\" | \"loss of control\" (union of stories, each story counted once)",
+   "trend_pct_week": 0.0,
+   "trend_p": 1.0,
+   "trend": false,
+   "expected": 5.5
   },
   {
    "id": "hn-agent-mishap",
@@ -1539,14 +1547,19 @@
    "latest": 5,
    "baseline": 2.0,
    "ratio": 2.5,
-   "z": 2.5,
+   "z": 2.33,
    "anomaly": true,
    "baseline_weeks": 12,
-   "method": "latest = sum of the last 7 complete UTC days; baseline = median of the sums of the earlier non-overlapping 7-day blocks (counted back from the latest week, full blocks only, null days excluded); ratio = latest/baseline; z = (latest - mean)/stdev of those block sums. anomaly if ratio >= 1.8 or <= 0.5, with at least 4 baseline weeks and latest+baseline >= 5.",
+   "method": "blocks = sums of non-overlapping 7-day windows counted back from the last complete UTC day (daily series; null days drop the block) or the weekly values (weekly series); latest = the newest block, fit = the previous up to 12 blocks. TREND: Theil-Sen slope of log(count+1) over the fit blocks, reported as %/week when Kendall tau p < 0.05 and |slope| >= 5%/week; a trend is never an anomaly. ANOMALY (spike or drop): latest against the trend extrapolated one block ahead, r = log(latest+1) - log(expected+1); flagged when |r| >= log(1.8), |r| >= 3 x the median absolute deviation of the fit residuals, the larger of latest and expected is >= 5, and there are at least 4 fit blocks. baseline = median of the fit blocks (shown for scale only). Known gaps: blocks are not calendar-aligned, GitHub counts of the newest days can still be backfilled, holidays are not tagged (method reviewed by a second model, 2026-10-21).",
    "means": "More reports of AI agents taking destructive actions such as deleting data or code.",
    "not_proof": "A headline is an anecdote; one viral incident can produce many stories.",
    "error": null,
-   "query": "\"AI agent\" deleted | \"agent deleted\" | \"AI agent\" wiped | \"agent\" \"production database\" (union of stories, each story counted once)"
+   "query": "\"AI agent\" deleted | \"agent deleted\" | \"AI agent\" wiped | \"agent\" \"production database\" (union of stories, each story counted once)",
+   "trend_pct_week": -5.1,
+   "trend_p": 0.1926,
+   "trend": false,
+   "expected": 1.2,
+   "direction": "up"
   },
   {
    "id": "hn-self-replication",
@@ -1924,14 +1937,18 @@
    "latest": 2,
    "baseline": 1.0,
    "ratio": 2.0,
-   "z": 0.82,
+   "z": 0.39,
    "anomaly": false,
    "baseline_weeks": 12,
-   "method": "latest = sum of the last 7 complete UTC days; baseline = median of the sums of the earlier non-overlapping 7-day blocks (counted back from the latest week, full blocks only, null days excluded); ratio = latest/baseline; z = (latest - mean)/stdev of those block sums. anomaly if ratio >= 1.8 or <= 0.5, with at least 4 baseline weeks and latest+baseline >= 5.",
+   "method": "blocks = sums of non-overlapping 7-day windows counted back from the last complete UTC day (daily series; null days drop the block) or the weekly values (weekly series); latest = the newest block, fit = the previous up to 12 blocks. TREND: Theil-Sen slope of log(count+1) over the fit blocks, reported as %/week when Kendall tau p < 0.05 and |slope| >= 5%/week; a trend is never an anomaly. ANOMALY (spike or drop): latest against the trend extrapolated one block ahead, r = log(latest+1) - log(expected+1); flagged when |r| >= log(1.8), |r| >= 3 x the median absolute deviation of the fit residuals, the larger of latest and expected is >= 5, and there are at least 4 fit blocks. baseline = median of the fit blocks (shown for scale only). Known gaps: blocks are not calendar-aligned, GitHub counts of the newest days can still be backfilled, holidays are not tagged (method reviewed by a second model, 2026-10-21).",
    "means": "More attention to AI systems copying or exfiltrating themselves.",
    "not_proof": "Mostly coverage of evaluations and papers, not observed escapes.",
    "error": null,
-   "query": "\"self-replicating AI\" | \"self-replication\" | \"exfiltrate\" AI | \"escaped\" AI model (union of stories, each story counted once)"
+   "query": "\"self-replicating AI\" | \"self-replication\" | \"exfiltrate\" AI | \"escaped\" AI model (union of stories, each story counted once)",
+   "trend_pct_week": 0.0,
+   "trend_p": 1.0,
+   "trend": false,
+   "expected": 1.0
   },
   {
    "id": "hn-ai-safety",
@@ -2309,14 +2326,1197 @@
    "latest": 15,
    "baseline": 8.0,
    "ratio": 1.875,
-   "z": 0.14,
-   "anomaly": true,
+   "z": -0.45,
+   "anomaly": false,
    "baseline_weeks": 12,
-   "method": "latest = sum of the last 7 complete UTC days; baseline = median of the sums of the earlier non-overlapping 7-day blocks (counted back from the latest week, full blocks only, null days excluded); ratio = latest/baseline; z = (latest - mean)/stdev of those block sums. anomaly if ratio >= 1.8 or <= 0.5, with at least 4 baseline weeks and latest+baseline >= 5.",
+   "method": "blocks = sums of non-overlapping 7-day windows counted back from the last complete UTC day (daily series; null days drop the block) or the weekly values (weekly series); latest = the newest block, fit = the previous up to 12 blocks. TREND: Theil-Sen slope of log(count+1) over the fit blocks, reported as %/week when Kendall tau p < 0.05 and |slope| >= 5%/week; a trend is never an anomaly. ANOMALY (spike or drop): latest against the trend extrapolated one block ahead, r = log(latest+1) - log(expected+1); flagged when |r| >= log(1.8), |r| >= 3 x the median absolute deviation of the fit residuals, the larger of latest and expected is >= 5, and there are at least 4 fit blocks. baseline = median of the fit blocks (shown for scale only). Known gaps: blocks are not calendar-aligned, GitHub counts of the newest days can still be backfilled, holidays are not tagged (method reviewed by a second model, 2026-10-21).",
    "means": "General attention to AI safety among technologists; a broad background level.",
    "not_proof": "Attention follows news cycles and lab announcements, not risk itself.",
    "error": null,
-   "query": "\"AI safety\" | \"alignment\" AI (union of stories, each story counted once)"
+   "query": "\"AI safety\" | \"alignment\" AI (union of stories, each story counted once)",
+   "trend_pct_week": 11.1,
+   "trend_p": 0.2726,
+   "trend": false,
+   "expected": 20.7
+  },
+  {
+   "id": "gh-mcp-server",
+   "family": "exposure",
+   "name": "New repos: topic mcp-server",
+   "unit": "repos/day",
+   "source": "GitHub search API",
+   "source_url": "https://github.com/topics/mcp-server",
+   "series": [
+    [
+     "2026-07-22",
+     145
+    ],
+    [
+     "2026-07-23",
+     115
+    ],
+    [
+     "2026-07-24",
+     98
+    ],
+    [
+     "2026-07-25",
+     87
+    ],
+    [
+     "2026-07-26",
+     82
+    ],
+    [
+     "2026-07-27",
+     84
+    ],
+    [
+     "2026-07-28",
+     129
+    ],
+    [
+     "2026-07-29",
+     109
+    ],
+    [
+     "2026-07-30",
+     108
+    ],
+    [
+     "2026-07-31",
+     89
+    ],
+    [
+     "2026-08-01",
+     92
+    ],
+    [
+     "2026-08-02",
+     88
+    ],
+    [
+     "2026-08-03",
+     88
+    ],
+    [
+     "2026-08-04",
+     102
+    ],
+    [
+     "2026-08-05",
+     103
+    ],
+    [
+     "2026-08-06",
+     99
+    ],
+    [
+     "2026-08-07",
+     86
+    ],
+    [
+     "2026-08-08",
+     92
+    ],
+    [
+     "2026-08-09",
+     73
+    ],
+    [
+     "2026-08-10",
+     107
+    ],
+    [
+     "2026-08-11",
+     121
+    ],
+    [
+     "2026-08-12",
+     115
+    ],
+    [
+     "2026-08-13",
+     113
+    ],
+    [
+     "2026-08-14",
+     103
+    ],
+    [
+     "2026-08-15",
+     112
+    ],
+    [
+     "2026-08-16",
+     102
+    ],
+    [
+     "2026-08-17",
+     115
+    ],
+    [
+     "2026-08-18",
+     171
+    ],
+    [
+     "2026-08-19",
+     105
+    ],
+    [
+     "2026-08-20",
+     121
+    ],
+    [
+     "2026-08-21",
+     126
+    ],
+    [
+     "2026-08-22",
+     136
+    ],
+    [
+     "2026-08-23",
+     138
+    ],
+    [
+     "2026-08-24",
+     182
+    ],
+    [
+     "2026-08-25",
+     210
+    ],
+    [
+     "2026-08-26",
+     112
+    ],
+    [
+     "2026-08-27",
+     116
+    ],
+    [
+     "2026-08-28",
+     104
+    ],
+    [
+     "2026-08-29",
+     134
+    ],
+    [
+     "2026-08-30",
+     139
+    ],
+    [
+     "2026-08-31",
+     125
+    ],
+    [
+     "2026-09-01",
+     166
+    ],
+    [
+     "2026-09-02",
+     184
+    ],
+    [
+     "2026-09-03",
+     239
+    ],
+    [
+     "2026-09-04",
+     175
+    ],
+    [
+     "2026-09-05",
+     112
+    ],
+    [
+     "2026-09-06",
+     226
+    ],
+    [
+     "2026-09-07",
+     113
+    ],
+    [
+     "2026-09-08",
+     86
+    ],
+    [
+     "2026-09-09",
+     121
+    ],
+    [
+     "2026-09-10",
+     133
+    ],
+    [
+     "2026-09-11",
+     114
+    ],
+    [
+     "2026-09-12",
+     108
+    ],
+    [
+     "2026-09-13",
+     76
+    ],
+    [
+     "2026-09-14",
+     318
+    ],
+    [
+     "2026-09-15",
+     93
+    ],
+    [
+     "2026-09-16",
+     208
+    ],
+    [
+     "2026-09-17",
+     130
+    ],
+    [
+     "2026-09-18",
+     105
+    ],
+    [
+     "2026-09-19",
+     115
+    ],
+    [
+     "2026-09-20",
+     94
+    ],
+    [
+     "2026-09-21",
+     131
+    ],
+    [
+     "2026-09-22",
+     102
+    ],
+    [
+     "2026-09-23",
+     146
+    ],
+    [
+     "2026-09-24",
+     151
+    ],
+    [
+     "2026-09-25",
+     221
+    ],
+    [
+     "2026-09-26",
+     246
+    ],
+    [
+     "2026-09-27",
+     202
+    ],
+    [
+     "2026-09-28",
+     389
+    ],
+    [
+     "2026-09-29",
+     203
+    ],
+    [
+     "2026-09-30",
+     179
+    ],
+    [
+     "2026-10-01",
+     167
+    ],
+    [
+     "2026-10-02",
+     186
+    ],
+    [
+     "2026-10-03",
+     205
+    ],
+    [
+     "2026-10-04",
+     172
+    ],
+    [
+     "2026-10-05",
+     176
+    ],
+    [
+     "2026-10-06",
+     166
+    ],
+    [
+     "2026-10-07",
+     196
+    ],
+    [
+     "2026-10-08",
+     245
+    ],
+    [
+     "2026-10-09",
+     204
+    ],
+    [
+     "2026-10-10",
+     195
+    ],
+    [
+     "2026-10-11",
+     343
+    ],
+    [
+     "2026-10-12",
+     366
+    ],
+    [
+     "2026-10-13",
+     411
+    ],
+    [
+     "2026-10-14",
+     218
+    ],
+    [
+     "2026-10-15",
+     374
+    ],
+    [
+     "2026-10-16",
+     231
+    ],
+    [
+     "2026-10-17",
+     210
+    ],
+    [
+     "2026-10-18",
+     251
+    ],
+    [
+     "2026-10-19",
+     218
+    ],
+    [
+     "2026-10-20",
+     191
+    ]
+   ],
+   "latest": 1693,
+   "baseline": 929.5,
+   "ratio": 1.821,
+   "z": 0.2,
+   "anomaly": false,
+   "baseline_weeks": 12,
+   "method": "blocks = sums of non-overlapping 7-day windows counted back from the last complete UTC day (daily series; null days drop the block) or the weekly values (weekly series); latest = the newest block, fit = the previous up to 12 blocks. TREND: Theil-Sen slope of log(count+1) over the fit blocks, reported as %/week when Kendall tau p < 0.05 and |slope| >= 5%/week; a trend is never an anomaly. ANOMALY (spike or drop): latest against the trend extrapolated one block ahead, r = log(latest+1) - log(expected+1); flagged when |r| >= log(1.8), |r| >= 3 x the median absolute deviation of the fit residuals, the larger of latest and expected is >= 5, and there are at least 4 fit blocks. baseline = median of the fit blocks (shown for scale only). Known gaps: blocks are not calendar-aligned, GitHub counts of the newest days can still be backfilled, holidays are not tagged (method reviewed by a second model, 2026-10-21).",
+   "means": "More new MCP servers: more tools and systems wired directly into AI agents.",
+   "not_proof": "Most repos are hobby projects; a repo count is not deployment, and topic tagging is voluntary.",
+   "error": null,
+   "query": "topic:mcp-server created:<day>",
+   "note": "Counts are what the search returns today for each creation day: repos deleted, made private or tagged later change past days, so the newest days are revised upward over time.",
+   "fetched_days": 3,
+   "trend_pct_week": 8.1,
+   "trend_p": 0.002,
+   "trend": true,
+   "expected": 1632.8
+  },
+  {
+   "id": "gh-ai-agent",
+   "family": "exposure",
+   "name": "New repos: topic ai-agent",
+   "unit": "repos/day",
+   "source": "GitHub search API",
+   "source_url": "https://github.com/topics/ai-agent",
+   "series": [
+    [
+     "2026-07-22",
+     154
+    ],
+    [
+     "2026-07-23",
+     152
+    ],
+    [
+     "2026-07-24",
+     150
+    ],
+    [
+     "2026-07-25",
+     110
+    ],
+    [
+     "2026-07-26",
+     146
+    ],
+    [
+     "2026-07-27",
+     148
+    ],
+    [
+     "2026-07-28",
+     148
+    ],
+    [
+     "2026-07-29",
+     143
+    ],
+    [
+     "2026-07-30",
+     160
+    ],
+    [
+     "2026-07-31",
+     133
+    ],
+    [
+     "2026-08-01",
+     128
+    ],
+    [
+     "2026-08-02",
+     130
+    ],
+    [
+     "2026-08-03",
+     159
+    ],
+    [
+     "2026-08-04",
+     153
+    ],
+    [
+     "2026-08-05",
+     147
+    ],
+    [
+     "2026-08-06",
+     148
+    ],
+    [
+     "2026-08-07",
+     153
+    ],
+    [
+     "2026-08-08",
+     124
+    ],
+    [
+     "2026-08-09",
+     137
+    ],
+    [
+     "2026-08-10",
+     153
+    ],
+    [
+     "2026-08-11",
+     167
+    ],
+    [
+     "2026-08-12",
+     188
+    ],
+    [
+     "2026-08-13",
+     231
+    ],
+    [
+     "2026-08-14",
+     304
+    ],
+    [
+     "2026-08-15",
+     213
+    ],
+    [
+     "2026-08-16",
+     198
+    ],
+    [
+     "2026-08-17",
+     207
+    ],
+    [
+     "2026-08-18",
+     199
+    ],
+    [
+     "2026-08-19",
+     175
+    ],
+    [
+     "2026-08-20",
+     171
+    ],
+    [
+     "2026-08-21",
+     164
+    ],
+    [
+     "2026-08-22",
+     138
+    ],
+    [
+     "2026-08-23",
+     171
+    ],
+    [
+     "2026-08-24",
+     176
+    ],
+    [
+     "2026-08-25",
+     191
+    ],
+    [
+     "2026-08-26",
+     174
+    ],
+    [
+     "2026-08-27",
+     156
+    ],
+    [
+     "2026-08-28",
+     163
+    ],
+    [
+     "2026-08-29",
+     143
+    ],
+    [
+     "2026-08-30",
+     155
+    ],
+    [
+     "2026-08-31",
+     148
+    ],
+    [
+     "2026-09-01",
+     176
+    ],
+    [
+     "2026-09-02",
+     176
+    ],
+    [
+     "2026-09-03",
+     179
+    ],
+    [
+     "2026-09-04",
+     146
+    ],
+    [
+     "2026-09-05",
+     124
+    ],
+    [
+     "2026-09-06",
+     193
+    ],
+    [
+     "2026-09-07",
+     133
+    ],
+    [
+     "2026-09-08",
+     124
+    ],
+    [
+     "2026-09-09",
+     148
+    ],
+    [
+     "2026-09-10",
+     164
+    ],
+    [
+     "2026-09-11",
+     163
+    ],
+    [
+     "2026-09-12",
+     170
+    ],
+    [
+     "2026-09-13",
+     131
+    ],
+    [
+     "2026-09-14",
+     169
+    ],
+    [
+     "2026-09-15",
+     168
+    ],
+    [
+     "2026-09-16",
+     151
+    ],
+    [
+     "2026-09-17",
+     164
+    ],
+    [
+     "2026-09-18",
+     155
+    ],
+    [
+     "2026-09-19",
+     126
+    ],
+    [
+     "2026-09-20",
+     149
+    ],
+    [
+     "2026-09-21",
+     180
+    ],
+    [
+     "2026-09-22",
+     198
+    ],
+    [
+     "2026-09-23",
+     421
+    ],
+    [
+     "2026-09-24",
+     340
+    ],
+    [
+     "2026-09-25",
+     590
+    ],
+    [
+     "2026-09-26",
+     259
+    ],
+    [
+     "2026-09-27",
+     189
+    ],
+    [
+     "2026-09-28",
+     606
+    ],
+    [
+     "2026-09-29",
+     196
+    ],
+    [
+     "2026-09-30",
+     207
+    ],
+    [
+     "2026-10-01",
+     144
+    ],
+    [
+     "2026-10-02",
+     129
+    ],
+    [
+     "2026-10-03",
+     143
+    ],
+    [
+     "2026-10-04",
+     177
+    ],
+    [
+     "2026-10-05",
+     137
+    ],
+    [
+     "2026-10-06",
+     134
+    ],
+    [
+     "2026-10-07",
+     151
+    ],
+    [
+     "2026-10-08",
+     180
+    ],
+    [
+     "2026-10-09",
+     228
+    ],
+    [
+     "2026-10-10",
+     213
+    ],
+    [
+     "2026-10-11",
+     157
+    ],
+    [
+     "2026-10-12",
+     184
+    ],
+    [
+     "2026-10-13",
+     179
+    ],
+    [
+     "2026-10-14",
+     194
+    ],
+    [
+     "2026-10-15",
+     179
+    ],
+    [
+     "2026-10-16",
+     172
+    ],
+    [
+     "2026-10-17",
+     145
+    ],
+    [
+     "2026-10-18",
+     164
+    ],
+    [
+     "2026-10-19",
+     181
+    ],
+    [
+     "2026-10-20",
+     151
+    ]
+   ],
+   "latest": 1186,
+   "baseline": 1114.0,
+   "ratio": 1.065,
+   "z": -0.24,
+   "anomaly": false,
+   "baseline_weeks": 12,
+   "method": "blocks = sums of non-overlapping 7-day windows counted back from the last complete UTC day (daily series; null days drop the block) or the weekly values (weekly series); latest = the newest block, fit = the previous up to 12 blocks. TREND: Theil-Sen slope of log(count+1) over the fit blocks, reported as %/week when Kendall tau p < 0.05 and |slope| >= 5%/week; a trend is never an anomaly. ANOMALY (spike or drop): latest against the trend extrapolated one block ahead, r = log(latest+1) - log(expected+1); flagged when |r| >= log(1.8), |r| >= 3 x the median absolute deviation of the fit residuals, the larger of latest and expected is >= 5, and there are at least 4 fit blocks. baseline = median of the fit blocks (shown for scale only). Known gaps: blocks are not calendar-aligned, GitHub counts of the newest days can still be backfilled, holidays are not tagged (method reviewed by a second model, 2026-10-21).",
+   "means": "More new agent projects: a growing surface of autonomous software with real permissions.",
+   "not_proof": "Creation counts include forks of templates and abandoned experiments; they do not measure use.",
+   "error": null,
+   "query": "topic:ai-agent created:<day>",
+   "note": "Counts are what the search returns today for each creation day: repos deleted, made private or tagged later change past days, so the newest days are revised upward over time.",
+   "fetched_days": 3,
+   "trend_pct_week": 1.4,
+   "trend_p": 0.1148,
+   "trend": false,
+   "expected": 1196.7
+  },
+  {
+   "id": "arxiv-self-replication",
+   "family": "research",
+   "name": "Self-replication papers",
+   "unit": "papers/week",
+   "source": "arXiv API",
+   "source_url": "https://info.arxiv.org/help/api/",
+   "series": [
+    [
+     "2026-07-21",
+     0
+    ],
+    [
+     "2026-07-28",
+     1
+    ],
+    [
+     "2026-08-04",
+     0
+    ],
+    [
+     "2026-08-11",
+     0
+    ],
+    [
+     "2026-08-18",
+     0
+    ],
+    [
+     "2026-08-25",
+     0
+    ],
+    [
+     "2026-09-01",
+     0
+    ],
+    [
+     "2026-09-08",
+     1
+    ],
+    [
+     "2026-09-15",
+     1
+    ],
+    [
+     "2026-09-22",
+     0
+    ],
+    [
+     "2026-09-29",
+     1
+    ],
+    [
+     "2026-10-06",
+     0
+    ],
+    [
+     "2026-10-13",
+     1
+    ]
+   ],
+   "latest": 1,
+   "baseline": 0.0,
+   "ratio": null,
+   "z": null,
+   "anomaly": false,
+   "baseline_weeks": 12,
+   "method": "blocks = sums of non-overlapping 7-day windows counted back from the last complete UTC day (daily series; null days drop the block) or the weekly values (weekly series); latest = the newest block, fit = the previous up to 12 blocks. TREND: Theil-Sen slope of log(count+1) over the fit blocks, reported as %/week when Kendall tau p < 0.05 and |slope| >= 5%/week; a trend is never an anomaly. ANOMALY (spike or drop): latest against the trend extrapolated one block ahead, r = log(latest+1) - log(expected+1); flagged when |r| >= log(1.8), |r| >= 3 x the median absolute deviation of the fit residuals, the larger of latest and expected is >= 5, and there are at least 4 fit blocks. baseline = median of the fit blocks (shown for scale only). Known gaps: blocks are not calendar-aligned, GitHub counts of the newest days can still be backfilled, holidays are not tagged (method reviewed by a second model, 2026-10-21).",
+   "means": "More research attention to AI systems copying or exfiltrating themselves, often because evaluations started finding the capability.",
+   "not_proof": "Papers measure or discuss a capability; a count does not show that any deployed system replicated itself.",
+   "error": null,
+   "query": "(abs:\"self-replication\" OR abs:\"self-replicating\" OR abs:\"self-exfiltration\" OR abs:\"autonomous replication\" OR abs:\"replicate itself\") AND (abs:AI OR abs:LLM OR abs:LLMs OR abs:\"language model\" OR abs:agent OR abs:agents)",
+   "window": "7-day windows by first-version submission date, the last ending 2026-10-19 (2-day lag: arXiv announces papers the next weekday); dated by window start",
+   "total_in_range": 5,
+   "trend_pct_week": 0.0,
+   "trend_p": 0.6312,
+   "trend": false,
+   "expected": 0.0
+  },
+  {
+   "id": "arxiv-scheming",
+   "family": "research",
+   "name": "Scheming / deceptive alignment papers",
+   "unit": "papers/week",
+   "source": "arXiv API",
+   "source_url": "https://info.arxiv.org/help/api/",
+   "series": [
+    [
+     "2026-07-21",
+     0
+    ],
+    [
+     "2026-07-28",
+     0
+    ],
+    [
+     "2026-08-04",
+     1
+    ],
+    [
+     "2026-08-11",
+     1
+    ],
+    [
+     "2026-08-18",
+     2
+    ],
+    [
+     "2026-08-25",
+     3
+    ],
+    [
+     "2026-09-01",
+     4
+    ],
+    [
+     "2026-09-08",
+     1
+    ],
+    [
+     "2026-09-15",
+     1
+    ],
+    [
+     "2026-09-22",
+     2
+    ],
+    [
+     "2026-09-29",
+     1
+    ],
+    [
+     "2026-10-06",
+     1
+    ],
+    [
+     "2026-10-13",
+     2
+    ]
+   ],
+   "latest": 2,
+   "baseline": 1.0,
+   "ratio": 2.0,
+   "z": 0.59,
+   "anomaly": false,
+   "baseline_weeks": 12,
+   "method": "blocks = sums of non-overlapping 7-day windows counted back from the last complete UTC day (daily series; null days drop the block) or the weekly values (weekly series); latest = the newest block, fit = the previous up to 12 blocks. TREND: Theil-Sen slope of log(count+1) over the fit blocks, reported as %/week when Kendall tau p < 0.05 and |slope| >= 5%/week; a trend is never an anomaly. ANOMALY (spike or drop): latest against the trend extrapolated one block ahead, r = log(latest+1) - log(expected+1); flagged when |r| >= log(1.8), |r| >= 3 x the median absolute deviation of the fit residuals, the larger of latest and expected is >= 5, and there are at least 4 fit blocks. baseline = median of the fit blocks (shown for scale only). Known gaps: blocks are not calendar-aligned, GitHub counts of the newest days can still be backfilled, holidays are not tagged (method reviewed by a second model, 2026-10-21).",
+   "means": "More work on models hiding goals or underperforming on purpose, a sign the behaviour is being observed or taken seriously.",
+   "not_proof": "A paper count tracks researcher attention and funding, not how often real models deceive.",
+   "error": null,
+   "query": "(abs:\"scheming\" AND (abs:LLM OR abs:LLMs OR abs:\"language model\" OR abs:\"language models\" OR abs:AI OR abs:agent OR abs:agents)) OR abs:\"alignment faking\" OR abs:\"deceptive alignment\" OR abs:\"sandbagging\"",
+   "local_filter": "\\bschem(?:ing|er|ers)\\b|alignment[- ]faking|deceptive(?:ly)?[- ]align|sandbag",
+   "kept_after_filter": 19,
+   "window": "7-day windows by first-version submission date, the last ending 2026-10-19 (2-day lag: arXiv announces papers the next weekday); dated by window start",
+   "total_in_range": 453,
+   "trend_pct_week": 2.9,
+   "trend_p": 0.2726,
+   "trend": false,
+   "expected": 1.4
+  },
+  {
+   "id": "arxiv-reward-hacking",
+   "family": "research",
+   "name": "Reward hacking papers",
+   "unit": "papers/week",
+   "source": "arXiv API",
+   "source_url": "https://info.arxiv.org/help/api/",
+   "series": [
+    [
+     "2026-07-21",
+     4
+    ],
+    [
+     "2026-07-28",
+     5
+    ],
+    [
+     "2026-08-04",
+     5
+    ],
+    [
+     "2026-08-11",
+     3
+    ],
+    [
+     "2026-08-18",
+     9
+    ],
+    [
+     "2026-08-25",
+     13
+    ],
+    [
+     "2026-09-01",
+     6
+    ],
+    [
+     "2026-09-08",
+     13
+    ],
+    [
+     "2026-09-15",
+     6
+    ],
+    [
+     "2026-09-22",
+     16
+    ],
+    [
+     "2026-09-29",
+     20
+    ],
+    [
+     "2026-10-06",
+     16
+    ],
+    [
+     "2026-10-13",
+     15
+    ]
+   ],
+   "latest": 15,
+   "baseline": 7.5,
+   "ratio": 2.0,
+   "z": -1.77,
+   "anomaly": false,
+   "baseline_weeks": 12,
+   "method": "blocks = sums of non-overlapping 7-day windows counted back from the last complete UTC day (daily series; null days drop the block) or the weekly values (weekly series); latest = the newest block, fit = the previous up to 12 blocks. TREND: Theil-Sen slope of log(count+1) over the fit blocks, reported as %/week when Kendall tau p < 0.05 and |slope| >= 5%/week; a trend is never an anomaly. ANOMALY (spike or drop): latest against the trend extrapolated one block ahead, r = log(latest+1) - log(expected+1); flagged when |r| >= log(1.8), |r| >= 3 x the median absolute deviation of the fit residuals, the larger of latest and expected is >= 5, and there are at least 4 fit blocks. baseline = median of the fit blocks (shown for scale only). Known gaps: blocks are not calendar-aligned, GitHub counts of the newest days can still be backfilled, holidays are not tagged (method reviewed by a second model, 2026-10-21).",
+   "means": "More reports of systems gaming their objectives, including in agentic training runs.",
+   "not_proof": "Rising counts can reflect a fashionable term or one big lab release, not more real-world failures.",
+   "error": null,
+   "query": "abs:\"reward hacking\" OR abs:\"specification gaming\"",
+   "window": "7-day windows by first-version submission date, the last ending 2026-10-19 (2-day lag: arXiv announces papers the next weekday); dated by window start",
+   "total_in_range": 131,
+   "trend_pct_week": 13.5,
+   "trend_p": 0.0032,
+   "trend": true,
+   "expected": 22.6
+  },
+  {
+   "id": "arxiv-corrigibility",
+   "family": "research",
+   "name": "Shutdown / corrigibility papers",
+   "unit": "papers/week",
+   "source": "arXiv API",
+   "source_url": "https://info.arxiv.org/help/api/",
+   "series": [
+    [
+     "2026-07-21",
+     0
+    ],
+    [
+     "2026-07-28",
+     0
+    ],
+    [
+     "2026-08-04",
+     0
+    ],
+    [
+     "2026-08-11",
+     2
+    ],
+    [
+     "2026-08-18",
+     0
+    ],
+    [
+     "2026-08-25",
+     1
+    ],
+    [
+     "2026-09-01",
+     0
+    ],
+    [
+     "2026-09-08",
+     0
+    ],
+    [
+     "2026-09-15",
+     0
+    ],
+    [
+     "2026-09-22",
+     3
+    ],
+    [
+     "2026-09-29",
+     0
+    ],
+    [
+     "2026-10-06",
+     0
+    ],
+    [
+     "2026-10-13",
+     2
+    ]
+   ],
+   "latest": 2,
+   "baseline": 0.0,
+   "ratio": null,
+   "z": null,
+   "anomaly": false,
+   "baseline_weeks": 12,
+   "method": "blocks = sums of non-overlapping 7-day windows counted back from the last complete UTC day (daily series; null days drop the block) or the weekly values (weekly series); latest = the newest block, fit = the previous up to 12 blocks. TREND: Theil-Sen slope of log(count+1) over the fit blocks, reported as %/week when Kendall tau p < 0.05 and |slope| >= 5%/week; a trend is never an anomaly. ANOMALY (spike or drop): latest against the trend extrapolated one block ahead, r = log(latest+1) - log(expected+1); flagged when |r| >= log(1.8), |r| >= 3 x the median absolute deviation of the fit residuals, the larger of latest and expected is >= 5, and there are at least 4 fit blocks. baseline = median of the fit blocks (shown for scale only). Known gaps: blocks are not calendar-aligned, GitHub counts of the newest days can still be backfilled, holidays are not tagged (method reviewed by a second model, 2026-10-21).",
+   "means": "More work on whether AI systems accept correction or being turned off.",
+   "not_proof": "Research on the off-switch problem is not evidence that any system resisted shutdown.",
+   "error": null,
+   "query": "abs:\"corrigibility\" OR abs:\"corrigible\" OR abs:\"shutdown resistance\" OR abs:\"shutdown avoidance\" OR abs:\"off-switch\"",
+   "window": "7-day windows by first-version submission date, the last ending 2026-10-19 (2-day lag: arXiv announces papers the next weekday); dated by window start",
+   "total_in_range": 8,
+   "trend_pct_week": 0.0,
+   "trend_p": 0.9453,
+   "trend": false,
+   "expected": 0.0
+  },
+  {
+   "id": "arxiv-jailbreak",
+   "family": "research",
+   "name": "Jailbreak papers",
+   "unit": "papers/week",
+   "source": "arXiv API",
+   "source_url": "https://info.arxiv.org/help/api/",
+   "series": [
+    [
+     "2026-07-21",
+     10
+    ],
+    [
+     "2026-07-28",
+     16
+    ],
+    [
+     "2026-08-04",
+     13
+    ],
+    [
+     "2026-08-11",
+     16
+    ],
+    [
+     "2026-08-18",
+     12
+    ],
+    [
+     "2026-08-25",
+     19
+    ],
+    [
+     "2026-09-01",
+     17
+    ],
+    [
+     "2026-09-08",
+     14
+    ],
+    [
+     "2026-09-15",
+     7
+    ],
+    [
+     "2026-09-22",
+     17
+    ],
+    [
+     "2026-09-29",
+     32
+    ],
+    [
+     "2026-10-06",
+     15
+    ],
+    [
+     "2026-10-13",
+     22
+    ]
+   ],
+   "latest": 22,
+   "baseline": 15.5,
+   "ratio": 1.419,
+   "z": 0.98,
+   "anomaly": false,
+   "baseline_weeks": 12,
+   "method": "blocks = sums of non-overlapping 7-day windows counted back from the last complete UTC day (daily series; null days drop the block) or the weekly values (weekly series); latest = the newest block, fit = the previous up to 12 blocks. TREND: Theil-Sen slope of log(count+1) over the fit blocks, reported as %/week when Kendall tau p < 0.05 and |slope| >= 5%/week; a trend is never an anomaly. ANOMALY (spike or drop): latest against the trend extrapolated one block ahead, r = log(latest+1) - log(expected+1); flagged when |r| >= log(1.8), |r| >= 3 x the median absolute deviation of the fit residuals, the larger of latest and expected is >= 5, and there are at least 4 fit blocks. baseline = median of the fit blocks (shown for scale only). Known gaps: blocks are not calendar-aligned, GitHub counts of the newest days can still be backfilled, holidays are not tagged (method reviewed by a second model, 2026-10-21).",
+   "means": "More published ways around model safeguards, or more defences against them.",
+   "not_proof": "Jailbreak papers are mostly lab red-teaming; they do not measure misuse in the wild.",
+   "error": null,
+   "query": "abs:\"jailbreak\" OR abs:\"jailbreaking\"",
+   "window": "7-day windows by first-version submission date, the last ending 2026-10-19 (2-day lag: arXiv announces papers the next weekday); dated by window start",
+   "total_in_range": 210,
+   "trend_pct_week": 2.5,
+   "trend_p": 0.3037,
+   "trend": false,
+   "expected": 17.6
   }
  ],
  "crowd": [

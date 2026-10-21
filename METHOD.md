@@ -44,8 +44,11 @@ For the oversight gap read the anchors as the weakness of brakes (0 = strong, bi
 3. **Both directions.** A new binding law, a strong safety result, a failed replication count as much as an
    alarming demo. An index that can only climb is broken.
 4. **Signals are evidence, not a formula.** Daily counts (papers, exploited vulnerabilities, incidents,
-   attention, new agent tooling) are compared with their own baseline; an anomaly is a lead to check, never a
-   score change by itself. Attention is not danger: a spike in headlines measures headlines.
+   attention, new agent tooling) are compared with their own recent trend (Theil-Sen over the last 12 weeks).
+   A steady rise is reported as a trend in %/week, never as an anomaly: a growing field is not an alarm. An
+   anomaly is a week that jumps at least 1.8x off the extrapolated trend and 3x past the trend's usual scatter
+   (changed 2026-10-21 after the first run flagged four plain growth curves; reviewed by a second model). It is
+   a lead to check, never a score change by itself. Attention is not danger: a spike in headlines measures headlines.
 5. **Second opinion.** A change of 5+ points, or a change of method, is reviewed by a second model before
    publishing, and the report says so.
 6. **Corrections stay visible** next to what they correct.

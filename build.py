@@ -181,7 +181,12 @@ def ev_row(x):
 def sig_card(s):
     hot = bool(s.get('anomaly'))
     ratio = s.get('ratio')
-    rtxt = f'{ratio:.2f}× baseline' if isinstance(ratio, (int, float)) else ('error: ' + str(s['error'])[:60] if s.get('error') else '')
+    exp_, tr = s.get('expected'), s.get('trend_pct_week')
+    rtxt = (f'expected {exp_:g} on trend' if isinstance(exp_, (int, float)) else (f'{ratio:.2f}× baseline' if isinstance(ratio, (int, float)) else ''))
+    if s.get('trend') and isinstance(tr, (int, float)):
+        rtxt += f' · trend {tr:+g}%/wk'
+    if s.get('error') and not s.get('series'):
+        rtxt = 'error: ' + str(s['error'])[:60]
     return (f'<article class="sig{" hot" if hot else ""}" data-hot="{int(hot)}"><div class="sf"><span>{e(FAM.get(s.get("family"), s.get("family")))}</span><b>{"anomaly" if hot else ""}</b></div>'
             f'<h3>{e(s.get("name"))}</h3><div class="sv"><div><span class="n">{e(s.get("latest", "–"))}</span><span class="u">{e(re.sub(r"/(day|week)$", "", s.get("unit", "")))} in 7 days · {e(rtxt)}</span></div>{spark(s.get("series", []), hot)}</div>'
             f'<p><b>May mean:</b> {e(s.get("means", ""))}</p><p><b>Does not prove:</b> {e(s.get("not_proof", ""))}</p>'
@@ -279,7 +284,7 @@ It is an author's analytical index, not a probability, not a date, and not an ac
     sb = ''.join(f'<h2 style="margin-top:36px">{e(FAM.get(f, f))}</h2><div class="cards">{"".join(sig_card(s) for s in sigs if s.get("family") == f)}</div>' for f in fams)
     gen = json.load(open(sp)).get('generated', '') if os.path.exists(sp) else ''
     page('/signals/', 'AI risk signals, counted daily — Off-Switch', 'Daily counts behind the AI loss-of-control index: research on self-replication and scheming, exploited vulnerabilities, AI incidents, agent tooling, attention.',
-         f'<section><div class="wrap"><p class="kick">Signals · updated {e(gen[:16])}</p><h1>Signals</h1><p class="lede">Each signal is a count compared with its own recent baseline. An anomaly is a lead to check, never a score change by itself. Attention is not danger: a spike in headlines measures headlines.</p>{sb}</div></section>')
+         f'<section><div class="wrap"><p class="kick">Signals · updated {e(gen[:16])}</p><h1>Signals</h1><p class="lede">Each signal is a count compared with its own recent trend. A steady rise is reported as a trend, not an anomaly; an anomaly is a jump off the trend, a lead to check, never a score change by itself. Attention is not danger: a spike in headlines measures headlines.</p>{sb}</div></section>')
     # ledger
     fb = '<div class="filters" id="f">' + '<button class="on" data-f="all">all</button>' + ''.join(f'<button data-f="{c}">{n}</button>' for c, n, _ in COMP) + '<button data-f="down">▼ toward control</button></div>'
     js = """<script>document.querySelectorAll('#f button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#f button').forEach(x=>x.classList.remove('on'));b.classList.add('on');const f=b.dataset.f;document.querySelectorAll('.ev').forEach(r=>{r.style.display=(f=='all'||r.dataset.c==f||(f=='down'&&r.dataset.d=='down'))?'':'none'})})</script>"""
