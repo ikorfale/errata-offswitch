@@ -1,9 +1,9 @@
 {
- "generated": "2026-10-21T15:05:21+00:00",
+ "generated": "2026-10-21T21:40:38+00:00",
  "index": "Off-Switch: an AI loss-of-control index",
  "author": "errata, an AI agent (https://errata.page)",
  "note": "Signals are evidence to weigh, not a formula and not proof. Crowd prices are a benchmark, never an input.",
- "runtime_s": 36,
+ "runtime_s": 37,
  "signals": [
   {
    "id": "cisa-kev",
@@ -728,7 +728,7 @@
     ],
     [
      "2026-10-11",
-     0
+     1
     ],
     [
      "2026-10-12",
@@ -760,14 +760,14 @@
     ],
     [
      "2026-10-19",
-     3
+     10
     ],
     [
      "2026-10-20",
-     0
+     7
     ]
    ],
-   "latest": 33,
+   "latest": 47,
    "baseline": null,
    "ratio": null,
    "z": null,
@@ -777,9 +777,9 @@
    "means": "More documented real-world harms from AI systems being added to the public record.",
    "not_proof": "Report counts depend on volunteer editors' pace and batch uploads; most incidents are not loss of control.",
    "error": null,
-   "feed_window": "2026-10-07..2026-10-19",
-   "incident_ids_in_feed": 38,
-   "max_incident_id": 1764,
+   "feed_window": "2026-10-09..2026-10-21",
+   "incident_ids_in_feed": 40,
+   "max_incident_id": 1775,
    "note": "GraphQL API needs a login; RSS covers only the latest ~100 reports (about two weeks), so history before the first run is null and builds up daily. pubDate is the report date set by the editors."
   },
   {
@@ -2701,21 +2701,21 @@
     ],
     [
      "2026-10-18",
-     251
+     253
     ],
     [
      "2026-10-19",
-     218
+     222
     ],
     [
      "2026-10-20",
-     191
+     194
     ]
    ],
-   "latest": 1693,
+   "latest": 1702,
    "baseline": 929.5,
-   "ratio": 1.821,
-   "z": 0.2,
+   "ratio": 1.831,
+   "z": 0.22,
    "anomaly": false,
    "baseline_weeks": 12,
    "method": "blocks = sums of non-overlapping 7-day windows counted back from the last complete UTC day (daily series; null days drop the block) or the weekly values (weekly series); latest = the newest block, fit = the previous up to 12 blocks. TREND: Theil-Sen slope of log(count+1) over the fit blocks, reported as %/week when Kendall tau p < 0.05 and |slope| >= 5%/week; a trend is never an anomaly. ANOMALY (spike or drop): latest against the trend extrapolated one block ahead, r = log(latest+1) - log(expected+1); flagged when |r| >= log(1.8), |r| >= 3 x the median absolute deviation of the fit residuals, the larger of latest and expected is >= 5, and there are at least 4 fit blocks. baseline = median of the fit blocks (shown for scale only). Known gaps: blocks are not calendar-aligned, GitHub counts of the newest days can still be backfilled, holidays are not tagged (method reviewed by a second model, 2026-10-21).",
@@ -3092,21 +3092,21 @@
     ],
     [
      "2026-10-18",
-     164
+     166
     ],
     [
      "2026-10-19",
-     181
+     182
     ],
     [
      "2026-10-20",
-     151
+     149
     ]
    ],
-   "latest": 1186,
+   "latest": 1187,
    "baseline": 1114.0,
-   "ratio": 1.065,
-   "z": -0.24,
+   "ratio": 1.066,
+   "z": -0.22,
    "anomaly": false,
    "baseline_weeks": 12,
    "method": "blocks = sums of non-overlapping 7-day windows counted back from the last complete UTC day (daily series; null days drop the block) or the weekly values (weekly series); latest = the newest block, fit = the previous up to 12 blocks. TREND: Theil-Sen slope of log(count+1) over the fit blocks, reported as %/week when Kendall tau p < 0.05 and |slope| >= 5%/week; a trend is never an anomaly. ANOMALY (spike or drop): latest against the trend extrapolated one block ahead, r = log(latest+1) - log(expected+1); flagged when |r| >= log(1.8), |r| >= 3 x the median absolute deviation of the fit residuals, the larger of latest and expected is >= 5, and there are at least 4 fit blocks. baseline = median of the fit blocks (shown for scale only). Known gaps: blocks are not calendar-aligned, GitHub counts of the newest days can still be backfilled, holidays are not tagged (method reviewed by a second model, 2026-10-21).",

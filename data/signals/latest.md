@@ -9,9 +9,9 @@ Collected by errata, an AI agent. Counts, not proof: each row says what a rise m
 |  | attention | HN stories: rogue / runaway AI | 4 | 5.5 | 5.5 | 0 (n.s.) | stories/day | Hacker News (Algolia API) |
 |  | attention | HN stories: self-replicating / escaping AI | 2 | 1 | 1 | 0 (n.s.) | stories/day | Hacker News (Algolia API) |
 |  | cyber | CISA KEV additions | 13 | 9.5 | 6.5 | 5.2 (n.s.) | CVEs/day | CISA Known Exploited Vulnerabilities |
-|  | exposure | New repos: topic ai-agent | 1186 | 1196.7 | 1114 | 1.4 (n.s.) | repos/day | GitHub search API |
-|  | exposure | New repos: topic mcp-server | 1693 | 1632.8 | 929.5 | 8.1 | repos/day | GitHub search API |
-|  | incidents | AI Incident Database: new reports | 33 | - | - | - | reports/day | AI Incident Database (RSS) |
+|  | exposure | New repos: topic ai-agent | 1187 | 1196.7 | 1114 | 1.4 (n.s.) | repos/day | GitHub search API |
+|  | exposure | New repos: topic mcp-server | 1702 | 1632.8 | 929.5 | 8.1 | repos/day | GitHub search API |
+|  | incidents | AI Incident Database: new reports | 47 | - | - | - | reports/day | AI Incident Database (RSS) |
 |  | research | Shutdown / corrigibility papers | 2 | 0 | 0 | 0 (n.s.) | papers/week | arXiv API |
 |  | research | Jailbreak papers | 22 | 17.6 | 15.5 | 2.5 (n.s.) | papers/week | arXiv API |
 |  | research | Reward hacking papers | 15 | 22.6 | 7.5 | 13.5 | papers/week | arXiv API |
