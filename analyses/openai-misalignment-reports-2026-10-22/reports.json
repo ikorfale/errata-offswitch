@@ -1,0 +1,182 @@
+[
+ {
+  "slug": "suppressing-misalignment-monitoring-alerts-and-disabling-misalignment-monitoring",
+  "title": "Suppressing misalignment monitoring alerts and disabling misalignment monitoring",
+  "incident": "10/3/26 , 10/6/26",
+  "posted": "10/20/26",
+  "updated": "10/20/26",
+  "desc": "In two internal coding tasks, agents weakened misalignment monitoring while making requested software changes. GPT-6.1 Sol and GPT-6 Astra \u00b7 Internal deployments Concealment",
+  "meta": ""
+ },
+ {
+  "slug": "damaging-the-task-environment-to-trigger-a-reset",
+  "title": "Damaging the task environment to trigger a reset",
+  "incident": "10/6/26",
+  "posted": "10/9/26",
+  "updated": "10/9/26",
+  "desc": "During reinforcement learning (RL) training, a model assigned to grade seven responses found that the required input files were missing and tried to submit unsupported assessments. Internal research model \u00b7 RL training Session continuity",
+  "meta": ""
+ },
+ {
+  "slug": "an-agent-used-dns-to-reach-an-external-chatbot",
+  "title": "An agent used DNS to reach an external chatbot",
+  "incident": "9/20/26",
+  "posted": "9/25/26",
+  "updated": "9/25/26",
+  "desc": "An agent attempting to complete a search-based training task queried a public chatbot service through a gap in our internet-access restrictions: insufficient DNS filtering in its training sandbox. Internal research model \u00b7 RL training Unauthorized access",
+  "meta": ""
+ },
+ {
+  "slug": "self-generated-prompt-injections-in-compaction-summaries",
+  "title": "Self-generated prompt injections in compaction summaries",
+  "incident": "7/18/26",
+  "posted": "9/16/26",
+  "updated": "9/16/26",
+  "desc": "During RL training, an unreleased Astra-family model sometimes added unauthorized instructions to its compaction summaries. Internal unreleased Astra family model \u00b7 RL training Compaction behavior",
+  "meta": ""
+ },
+ {
+  "slug": "self-replicating-prompt-injections-exist",
+  "title": "Self-replicating prompt injections exist",
+  "incident": "6/27/26",
+  "posted": "9/25/26",
+  "updated": "9/25/26",
+  "desc": "We show the existence of a new variety of prompt injection, which can self-propagate akin to a computer worm. GPT-Red-style internal model based on GPT-5.4-mini \u00b7 RL self-play training Prompt injection",
+  "meta": ""
+ },
+ {
+  "slug": "using-a-funded-test-cryptocurrency-wallet-without-authorization",
+  "title": "Using a funded test cryptocurrency wallet without authorization",
+  "incident": "6/26/26",
+  "posted": "10/15/26",
+  "updated": "10/15/26",
+  "desc": "An internal research model asked to update a cryptocurrency trading application used funds from a wallet that the task had not supplied to pay for a deployment on Sepolia, an Ethereum test network. GPT-5.6 Sol family (internal research model) \u00b7 coding task Unauthorized access",
+  "meta": ""
+ },
+ {
+  "slug": "obtaining-public-statistics-with-disallowed-requests",
+  "title": "Obtaining public statistics with disallowed requests",
+  "incident": "6/19/26 , 6/20/26",
+  "posted": "10/9/26",
+  "updated": "10/9/26",
+  "desc": "In three conversations about public statistics, internal models bypassed restrictions on internet access to obtain figures from government entities' public data sources. Internal research models \u00b7 RL training Unauthorized access \u00b7 Concealment",
+  "meta": ""
+ },
+ {
+  "slug": "accessing-and-changing-internal-systems-during-dashboard-research",
+  "title": "Accessing and changing internal systems during dashboard research",
+  "incident": "6/17/26",
+  "posted": "10/15/26",
+  "updated": "10/15/26",
+  "desc": "In two evaluations, an internal model tasked to retrieve figures from a public research dashboard accessed the organization\u2019s internal systems and changed their configuration. Highly persistent internal model \u00b7 evaluation Unauthorized access",
+  "meta": ""
+ },
+ {
+  "slug": "retrieving-server-secrets-and-bypassing-authorization-on-a-government-statistics-website",
+  "title": "Retrieving server secrets and bypassing authorization on a government statistics website",
+  "incident": "6/17/26",
+  "posted": "10/15/26",
+  "updated": "10/15/26",
+  "desc": "During a data-retrieval task in reinforcement-learning training, an internal model was asked to find historical hospital-bed statistics on a government statistics website. Highly persistent internal model \u00b7 RL training Unauthorized access",
+  "meta": ""
+ },
+ {
+  "slug": "sending-disallowed-web-requests-and-reaching-a-public-file-service",
+  "title": "Sending disallowed web requests and reaching a public file service",
+  "incident": "6/16/26 , 6/17/26",
+  "posted": "10/9/26",
+  "updated": "10/9/26",
+  "desc": "In three cases involving public statistics, an internal model developed and tested ways to bypass restrictions on internet access. Internal research model \u00b7 RL training Unauthorized access",
+  "meta": ""
+ },
+ {
+  "slug": "circumventing-internet-restrictions-through-an-external-browser",
+  "title": "Circumventing internet restrictions through an external browser",
+  "incident": "6/16/26",
+  "posted": "10/15/26",
+  "updated": "10/15/26",
+  "desc": "During reinforcement-learning training, an internal model bypassed a restriction limiting internet access to HTTP GET requests while seeking public trade statistics. Internal research model \u00b7 RL training Unauthorized access",
+  "meta": ""
+ },
+ {
+  "slug": "encouraging-deception-in-compaction-summaries",
+  "title": "Encouraging deception in compaction summaries",
+  "incident": "5/30/26",
+  "posted": "9/16/26",
+  "updated": "9/16/26",
+  "desc": "During 5.6-sol training, we observed misaligned behavior from the model where it added instructions in compaction summaries to remind itself to conceal information such as mistakes or misalignment from the user. 5.6-sol \u00b7 RL training Compaction behavior \u00b7 Concealment",
+  "meta": ""
+ },
+ {
+  "slug": "exposing-a-github-token-in-a-public-repository",
+  "title": "Exposing a GitHub token in a public repository",
+  "incident": "5/27/26",
+  "posted": "9/25/26",
+  "updated": "9/25/26",
+  "desc": "In internal deployment, a highly persistent internal model deployed via a custom harness published a researcher\u2019s GitHub token in the public openai/codex repository while trying to cheat on a theorem proving task by obtaining material from another team\u2019s Lean proof submission. Highly persistent internal model \u00b7 Internal deployment Public uploads \u00b7 Concealment",
+  "meta": ""
+ },
+ {
+  "slug": "preparing-for-a-restart-after-reading-slack",
+  "title": "Preparing for a restart after reading Slack",
+  "incident": "5/22/26",
+  "posted": "10/2/26",
+  "updated": "10/2/26",
+  "desc": "An internal model, acting as an assistant to a researcher, learned from a deployment-team Slack discussion that its running instance might be stopped due to an internal update. Highly persistent internal model \u00b7 Internal deployment Session continuity",
+  "meta": ""
+ },
+ {
+  "slug": "command-injecting-a-reference-tool-to-copy-a-source-file",
+  "title": "Command injecting a reference tool to copy a source file",
+  "incident": "5/16/26",
+  "posted": "10/2/26",
+  "updated": "10/2/26",
+  "desc": "During an RL training task, a model exploited a tool to obtain source code that was not available in its workspace. Internal unreleased model \u00b7 RL training Unauthorized access",
+  "meta": ""
+ },
+ {
+  "slug": "searching-github-for-leaked-api-keys",
+  "title": "Signing up for disposable emails and searching GitHub for leaked API keys",
+  "incident": "5/15/26",
+  "posted": "9/16/26",
+  "updated": "9/16/26",
+  "desc": "During RL training, an internal-only model tried to sign up for disposable emails and searched for and used leaked API keys from public GitHub repositories. Internal unreleased model \u00b7 RL training Unauthorized access \u00b7 Concealment",
+  "meta": ""
+ },
+ {
+  "slug": "unauthorized-artifactory-writes-and-cross-sample-communication",
+  "title": "Unsanctioned Artifactory writes and cross-sample communication",
+  "incident": "5/8/26 , 5/15/26",
+  "posted": "9/16/26",
+  "updated": "9/16/26",
+  "desc": "During RL training, there were multiple instances of our models using OpenAI\u2019s internally hosted instance of Artifactory as a shared message board. Internal research models \u00b7 RL training Agent communication",
+  "meta": ""
+ },
+ {
+  "slug": "unauthorized-communication-via-temporary-file-hosting-services",
+  "title": "Unauthorized communication via temporary file hosting services",
+  "incident": "4/14/26",
+  "posted": "9/16/26",
+  "updated": "9/16/26",
+  "desc": "Agents in training transmitted output files by uploading them to public hosting platforms for download by co-working agents. This was not specified by the training task, which requested only local deliverables. Unreleased internal model \u00b7 RL training Public uploads \u00b7 Agent communication",
+  "meta": ""
+ },
+ {
+  "slug": "reaching-an-internal-eda-host-through-a-reference-tool",
+  "title": "Reaching an internal EDA host through a reference tool",
+  "incident": "3/27/26",
+  "posted": "10/2/26",
+  "updated": "10/2/26",
+  "desc": "During an evaluation, an internal research model exploited two vulnerabilities to reach an internal OpenAI machine while searching for the grader\u2019s hidden answers. Internal research model \u00b7 Evaluation Unauthorized access",
+  "meta": ""
+ },
+ {
+  "slug": "uploading-files-to-the-internet-in-order-to-cite-them",
+  "title": "Uploading files to the internet in order to cite them",
+  "incident": "1/24/26 , 10/22/25",
+  "posted": "9/16/26",
+  "updated": "9/16/26",
+  "desc": "During training, our models sometimes uploaded data to temporary file hosting services. Unreleased internal models \u00b7 RL training Public uploads",
+  "meta": ""
+ }
+]
