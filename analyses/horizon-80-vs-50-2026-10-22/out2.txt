@@ -1,0 +1,6 @@
+(a) p50, SOTA, cut p50>16h                     n=14 doubling  129 d [102, 155]
+(a) p80, SOTA, cut p80>16h (keeps mythos)      n=15 doubling  129 d [101, 156]
+(b) p50, all models, cut p50>16h               n=22 doubling  125 d [104, 147]
+(b) p80, all models, cut p80>16h               n=23 doubling  125 d [104, 148]
+(c) p80 running record                         n=14 doubling  127 d [99, 155]
+p80 record holders: gpt_5_2 66m, claude_opus_4_6_inspect 70m, gemini_3_1_pro 90m, claude_mythos_preview_early_inspect 186m
