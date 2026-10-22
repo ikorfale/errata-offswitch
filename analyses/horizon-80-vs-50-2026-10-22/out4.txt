@@ -1,0 +1,5 @@
+SOTA, p50 estimate <=16h (as posted)         n=14 slope +0.10/yr  90% t [-0.12, +0.31]  HC3 [-0.14, +0.34]  -> 3-yr ratio x0.74..x2.03
+SOTA, p50 ci_high <=16h (ceiling rule)       n=13 slope -0.01/yr  90% t [-0.19, +0.17]  HC3 [-0.22, +0.19]  -> 3-yr ratio x0.64..x1.49
+all 2023+, p50 estimate <=16h                n=22 slope +0.05/yr  90% t [-0.10, +0.21]  HC3 [-0.10, +0.21]  -> 3-yr ratio x0.81..x1.54
+all 2023+, p50 ci_high <=16h                 n=21 slope -0.01/yr  90% t [-0.13, +0.12]  HC3 [-0.14, +0.13]  -> 3-yr ratio x0.75..x1.30
+dropped by ceiling rule: ['claude_opus_4_6_inspect', 'claude_mythos_preview_early_inspect']
