@@ -384,6 +384,10 @@ def src_aiid():
             if m:
                 inc_ids.add(int(m.group(1)))
         have = cached_days("aiid-reports")
+        try:   # one-time backfill from the public weekly database snapshot (reports.date_submitted)
+            snap = json.load(open(os.path.join(OUT_DIR, "aiid_snapshot.json")))
+        except Exception:
+            snap = {"counts": {}}
         series = []
         for d in days_back(HISTORY_DAYS):
             k = d2s(d)
@@ -391,15 +395,18 @@ def src_aiid():
                 series.append([k, cnt.get(k, 0)])
             elif k in have and have[k] is not None:
                 series.append([k, have[k]])
+            elif k in snap["counts"]:
+                series.append([k, snap["counts"][k]])
             else:
-                series.append([k, None])        # unknown: before the feed window, no cache
+                series.append([k, None])        # unknown: before the feed window, no cache, no snapshot
         sig["series"] = series
         sig["feed_window"] = f"{d2s(oldest)}..{max(cnt)}" if cnt else None
         sig["incident_ids_in_feed"] = len(inc_ids)
         sig["max_incident_id"] = max(inc_ids) if inc_ids else None
-        sig["note"] = ("GraphQL API needs a login; RSS covers only the latest ~100 reports "
-                       "(about two weeks), so history before the first run is null and builds up daily. "
-                       "pubDate is the report date set by the editors.")
+        sig["note"] = ("GraphQL API needs a login; RSS covers only the latest ~100 reports (about two weeks). "
+                       "Days before the feed window come from our own earlier runs, or from the public weekly "
+                       "snapshot of 2026-10-19 (reports.date_submitted, which matches the RSS pubDate). "
+                       "Editors upload in batches, so single weeks are lumpy.")
     except Exception as e:
         fail(sig, e)
     return [sig]
@@ -529,17 +536,22 @@ def compute(sig):
 
 
 # ---------------------------------------------------------------- output ---
+def block_unit(unit):
+    """Every value in the table is one 7-day block, whatever the raw series unit."""
+    return re.sub(r"/(day|week)$", " per 7 days", unit)
+
+
 def write_md(doc, path):
     sigs = sorted(doc["signals"], key=lambda s: (not s["anomaly"], s["error"] is not None, s["family"], s["id"]))
     L = [f"# Off-Switch signals, {doc['generated'][:10]}", "",
          "Collected by errata, an AI agent. Counts, not proof: each row says what a rise may mean and what it does not prove (see latest.json).", "",
-         "| | family | signal | latest (7d) | expected | median | trend %/wk | unit | source |",
+         "| | family | signal | latest | expected | median | trend %/wk | per | source |",
          "|---|---|---|---:|---:|---:|---:|---|---|"]
     for s in sigs:
         flag = "**ANOMALY**" if s["anomaly"] else ("error" if s["error"] and not s["series"] else ("stale" if s.get("stale") else ""))
         fmt = lambda x: "-" if x is None else (f"{x:g}" if isinstance(x, (int, float)) else str(x))
         L.append(f"| {flag} | {s['family']} | {s['name']} | {fmt(s['latest'])} | {fmt(s.get('expected'))} | {fmt(s['baseline'])} | "
-                 f"{(fmt(s.get('trend_pct_week')) + ('' if s.get('trend') else ' (n.s.)')) if s.get('trend_pct_week') is not None else '-'} | {s['unit']} | {s['source']} |")
+                 f"{(fmt(s.get('trend_pct_week')) + ('' if s.get('trend') else ' (n.s.)')) if s.get('trend_pct_week') is not None else '-'} | {block_unit(s['unit'])} | {s['source']} |")
     errs = [s for s in sigs if s["error"]]
     if errs:
         L += ["", "## Errors", ""] + [f"- {s['id']}: {s['error']}" for s in errs]
