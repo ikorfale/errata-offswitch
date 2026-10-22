@@ -23,6 +23,8 @@ import sys
 import time
 import urllib.error
 import math
+import html
+import collections
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -412,6 +414,80 @@ def src_aiid():
     return [sig]
 
 
+OAI_LAUNCH = "2026-09-16"
+
+
+def src_openai_tracker():
+    """OpenAI's public misalignment-reports tracker (launched 2026-09-16). Read as publication cadence,
+    never as a behaviour trend: post-launch entries are still draining a backlog, entries are editorial
+    units (one campaign can be five entries), and recent months are open. No anomaly flag (method
+    reviewed by a second model, 2026-10-22)."""
+    sig = base_signal("openai-misalignment-reports", "incidents", "OpenAI misalignment reports: publication cadence",
+                      "entries/week", "OpenAI alignment blog: misalignment reports",
+                      "https://alignment.openai.com/misalignment-reports/",
+                      "OpenAI keeps disclosing cases where its own models, in training, evaluations or internal use, "
+                      "broke the rules of their environment.",
+                      "Counts are OpenAI's publication pace and editorial splitting, not how often models misbehave; "
+                      "recent months are incomplete; one lab only, no cross-lab comparison.")
+    sig["no_anomaly"] = True
+    try:
+        raw = http_get(sig["source_url"], gap=1).decode("utf-8", "replace")
+        ents = []
+        for m in re.finditer(r'<tbody class="report-entry"(.*?)</tbody>', raw, re.S):
+            b = m.group(0)
+            attrs = dict(re.findall(r'data-(\w+)="([^"]*)"', b.split(">", 1)[0]))
+            cell = re.findall(r'data-label="Incident date">(.*?)</td>', b, re.S)
+            inc = sorted(re.findall(r'datetime="([\d-]+)"', cell[0])) if cell else []
+            if not inc or not attrs.get("created"):
+                continue
+            tops = re.findall(r'<p class="report-topics">(.*?)</p>', b, re.S)
+            ctx = html.unescape(tops[0]).split("\u00b7")[-1].strip().lower() if tops else ""
+            ctx = "internal deployment" if "deployment" in ctx else ("evaluation" if "evaluation" in ctx else "training")
+            topics = set(json.loads(html.unescape(attrs.get("topics", "[]")) or "[]"))
+            ents.append({"title": html.unescape(attrs.get("title", "")), "incident": inc[0],
+                         "posted": attrs["created"], "context": ctx, "topics": sorted(topics)})
+        if not ents:
+            raise ValueError("no entries parsed")
+        # weekly posted counts, 7-day blocks ending today (the launch batch is shown, never a baseline)
+        series = []
+        for k in range(12, -1, -1):
+            end = TODAY - dt.timedelta(days=7 * k)
+            start = end - dt.timedelta(days=6)
+            series.append([d2s(end), sum(1 for e in ents if d2s(start) <= e["posted"] <= d2s(end))])
+        sig["series"] = series
+        # monthly table by earliest incident date: entries, campaigns (shared topic, incidents within 7 days)
+        months = {}
+        for e in sorted(ents, key=lambda e: e["incident"]):
+            months.setdefault(e["incident"][:7], []).append(e)
+        table = []
+        for mo, es in sorted(months.items()):
+            camps = []
+            for e in es:
+                d = dt.date.fromisoformat(e["incident"])
+                for c in camps:
+                    if set(e["topics"]) & c["topics"] and abs((d - c["last"]).days) <= 7:
+                        c["topics"] |= set(e["topics"]); c["last"] = max(c["last"], d); break
+                else:
+                    camps.append({"topics": set(e["topics"]), "last": d})
+            y, mth = map(int, mo.split("-"))
+            mend = dt.date(y + (mth == 12), mth % 12 + 1, 1) - dt.timedelta(days=1)
+            table.append({"month": mo, "entries": len(es), "campaigns": len(camps),
+                          "lag_floor_days": max(0, (dt.date.fromisoformat(OAI_LAUNCH) - mend).days), "open": True})
+        sig["monthly_by_incident"] = table
+        sig["context_counts"] = dict(collections.Counter(e["context"] for e in ents))
+        last = max(e["posted"] for e in ents)
+        sig["days_since_last_post"] = (TODAY - dt.date.fromisoformat(last)).days
+        sig["entries_total"] = len(ents)
+        sig["entries_post_launch"] = sum(1 for e in ents if e["posted"] > OAI_LAUNCH)
+        sig["note"] = ("Publication cadence of one lab's disclosures. The launch batch of 2026-09-16 was a backlog; "
+                       "post-launch posts are still mostly backlog, so no disclosure-lag distribution and no anomaly "
+                       "flag until post-launch incidents alone reach about 15 entries. Every month by incident date "
+                       "is open (later posts can still fill it).")
+    except Exception as e:
+        fail(sig, e)
+    return [sig]
+
+
 CROWD_MARKETS = ["ZZRAP59Egn", "g0pyRzURty", "thIdLIgS6Z", "3WEqZXTKSwtJnmGWkF4W", "pQtqzpAnO5"]
 
 
@@ -488,6 +564,9 @@ def fail(sig, e):
 
 def compute(sig):
     ser = sig["series"]
+    if sig.get("no_anomaly"):
+        sig["latest"] = ser[-1][1] if ser else None
+        return
     if not ser:
         return
     if sig["unit"].endswith("/week"):
@@ -559,6 +638,14 @@ def write_md(doc, path):
     if thin:
         L += ["", "## Not enough history to flag anomalies", ""] + \
              [f"- {s['id']}: {s['baseline_weeks']} baseline weeks" for s in thin]
+    for s in sigs:
+        if s.get("monthly_by_incident"):
+            L += ["", f"## {s['name']} (no anomaly flag)", "",
+                  f"{s['entries_total']} entries ({s['entries_post_launch']} after the launch batch), "
+                  f"context {s['context_counts']}, last post {s['days_since_last_post']} days ago.", "",
+                  "| incident month | entries | campaigns | lag floor, days | status |", "|---|---:|---:|---:|---|"]
+            L += [f"| {r['month']} | {r['entries']} | {r['campaigns']} | {r['lag_floor_days']} | open |" for r in s["monthly_by_incident"]]
+            L += ["", s["not_proof"]]
     if doc.get("crowd"):
         L += ["", "## Crowd benchmark (Manifold; never an input to the signals)", ""]
         for c in doc["crowd"]:
@@ -576,7 +663,7 @@ def main():
     t0 = time.time()
     signals = []
     for name, fn in [("kev", src_kev), ("aiid", src_aiid), ("hn", src_hn),
-                     ("github", src_github), ("arxiv", src_arxiv)]:
+                     ("github", src_github), ("arxiv", src_arxiv), ("oai", src_openai_tracker)]:
         if ONLY and name not in ONLY:
             continue
         ts = time.time()

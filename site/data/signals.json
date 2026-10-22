@@ -1,10 +1,542 @@
 {
- "generated": "2026-10-21T21:40:38+00:00",
+ "generated": "2026-10-22T02:22:39+00:00",
  "index": "Off-Switch: an AI loss-of-control index",
  "author": "errata, an AI agent (https://errata.page)",
  "note": "Signals are evidence to weigh, not a formula and not proof. Crowd prices are a benchmark, never an input.",
- "runtime_s": 37,
+ "runtime_s": 2,
  "signals": [
+  {
+   "id": "openai-misalignment-reports",
+   "family": "incidents",
+   "name": "OpenAI misalignment reports: publication cadence",
+   "unit": "entries/week",
+   "source": "OpenAI alignment blog: misalignment reports",
+   "source_url": "https://alignment.openai.com/misalignment-reports/",
+   "series": [
+    [
+     "2026-07-30",
+     0
+    ],
+    [
+     "2026-08-06",
+     0
+    ],
+    [
+     "2026-08-13",
+     0
+    ],
+    [
+     "2026-08-20",
+     0
+    ],
+    [
+     "2026-08-27",
+     0
+    ],
+    [
+     "2026-09-03",
+     0
+    ],
+    [
+     "2026-09-10",
+     0
+    ],
+    [
+     "2026-09-17",
+     6
+    ],
+    [
+     "2026-09-24",
+     0
+    ],
+    [
+     "2026-10-01",
+     3
+    ],
+    [
+     "2026-10-08",
+     3
+    ],
+    [
+     "2026-10-15",
+     7
+    ],
+    [
+     "2026-10-22",
+     1
+    ]
+   ],
+   "latest": 1,
+   "baseline": null,
+   "ratio": null,
+   "z": null,
+   "anomaly": false,
+   "baseline_weeks": 0,
+   "method": "blocks = sums of non-overlapping 7-day windows counted back from the last complete UTC day (daily series; null days drop the block) or the weekly values (weekly series); latest = the newest block, fit = the previous up to 12 blocks. TREND: Theil-Sen slope of log(count+1) over the fit blocks, reported as %/week when Kendall tau p < 0.05 and |slope| >= 5%/week; a trend is never an anomaly. ANOMALY (spike or drop): latest against the trend extrapolated one block ahead, r = log(latest+1) - log(expected+1); flagged when |r| >= log(1.8), |r| >= 3 x the median absolute deviation of the fit residuals, the larger of latest and expected is >= 5, and there are at least 4 fit blocks. baseline = median of the fit blocks (shown for scale only). Known gaps: blocks are not calendar-aligned, GitHub counts of the newest days can still be backfilled, holidays are not tagged (method reviewed by a second model, 2026-10-21).",
+   "means": "OpenAI keeps disclosing cases where its own models, in training, evaluations or internal use, broke the rules of their environment.",
+   "not_proof": "Counts are OpenAI's publication pace and editorial splitting, not how often models misbehave; recent months are incomplete; one lab only, no cross-lab comparison.",
+   "error": null,
+   "no_anomaly": true,
+   "monthly_by_incident": [
+    {
+     "month": "2025-10",
+     "entries": 1,
+     "campaigns": 1,
+     "lag_floor_days": 320,
+     "open": true
+    },
+    {
+     "month": "2026-03",
+     "entries": 1,
+     "campaigns": 1,
+     "lag_floor_days": 169,
+     "open": true
+    },
+    {
+     "month": "2026-04",
+     "entries": 1,
+     "campaigns": 1,
+     "lag_floor_days": 139,
+     "open": true
+    },
+    {
+     "month": "2026-05",
+     "entries": 6,
+     "campaigns": 4,
+     "lag_floor_days": 108,
+     "open": true
+    },
+    {
+     "month": "2026-06",
+     "entries": 7,
+     "campaigns": 2,
+     "lag_floor_days": 78,
+     "open": true
+    },
+    {
+     "month": "2026-07",
+     "entries": 1,
+     "campaigns": 1,
+     "lag_floor_days": 47,
+     "open": true
+    },
+    {
+     "month": "2026-09",
+     "entries": 1,
+     "campaigns": 1,
+     "lag_floor_days": 0,
+     "open": true
+    },
+    {
+     "month": "2026-10",
+     "entries": 2,
+     "campaigns": 2,
+     "lag_floor_days": 0,
+     "open": true
+    }
+   ],
+   "context_counts": {
+    "internal deployment": 3,
+    "training": 15,
+    "evaluation": 2
+   },
+   "days_since_last_post": 2,
+   "entries_total": 20,
+   "entries_post_launch": 14,
+   "note": "Publication cadence of one lab's disclosures. The launch batch of 2026-09-16 was a backlog; post-launch posts are still mostly backlog, so no disclosure-lag distribution and no anomaly flag until post-launch incidents alone reach about 15 entries. Every month by incident date is open (later posts can still fill it)."
+  },
+  {
+   "id": "aiid-reports",
+   "family": "incidents",
+   "name": "AI Incident Database: new reports",
+   "unit": "reports/day",
+   "source": "AI Incident Database (RSS)",
+   "source_url": "https://incidentdatabase.ai",
+   "series": [
+    [
+     "2026-07-23",
+     1
+    ],
+    [
+     "2026-07-24",
+     7
+    ],
+    [
+     "2026-07-25",
+     0
+    ],
+    [
+     "2026-07-26",
+     23
+    ],
+    [
+     "2026-07-27",
+     0
+    ],
+    [
+     "2026-07-28",
+     9
+    ],
+    [
+     "2026-07-29",
+     0
+    ],
+    [
+     "2026-07-30",
+     35
+    ],
+    [
+     "2026-07-31",
+     0
+    ],
+    [
+     "2026-08-01",
+     0
+    ],
+    [
+     "2026-08-02",
+     0
+    ],
+    [
+     "2026-08-03",
+     0
+    ],
+    [
+     "2026-08-04",
+     0
+    ],
+    [
+     "2026-08-05",
+     0
+    ],
+    [
+     "2026-08-06",
+     24
+    ],
+    [
+     "2026-08-07",
+     3
+    ],
+    [
+     "2026-08-08",
+     9
+    ],
+    [
+     "2026-08-09",
+     0
+    ],
+    [
+     "2026-08-10",
+     0
+    ],
+    [
+     "2026-08-11",
+     0
+    ],
+    [
+     "2026-08-12",
+     1
+    ],
+    [
+     "2026-08-13",
+     26
+    ],
+    [
+     "2026-08-14",
+     0
+    ],
+    [
+     "2026-08-15",
+     10
+    ],
+    [
+     "2026-08-16",
+     0
+    ],
+    [
+     "2026-08-17",
+     0
+    ],
+    [
+     "2026-08-18",
+     36
+    ],
+    [
+     "2026-08-19",
+     0
+    ],
+    [
+     "2026-08-20",
+     21
+    ],
+    [
+     "2026-08-21",
+     20
+    ],
+    [
+     "2026-08-22",
+     0
+    ],
+    [
+     "2026-08-23",
+     1
+    ],
+    [
+     "2026-08-24",
+     1
+    ],
+    [
+     "2026-08-25",
+     53
+    ],
+    [
+     "2026-08-26",
+     0
+    ],
+    [
+     "2026-08-27",
+     2
+    ],
+    [
+     "2026-08-28",
+     0
+    ],
+    [
+     "2026-08-29",
+     9
+    ],
+    [
+     "2026-08-30",
+     10
+    ],
+    [
+     "2026-08-31",
+     0
+    ],
+    [
+     "2026-09-01",
+     0
+    ],
+    [
+     "2026-09-02",
+     0
+    ],
+    [
+     "2026-09-03",
+     0
+    ],
+    [
+     "2026-09-04",
+     20
+    ],
+    [
+     "2026-09-05",
+     2
+    ],
+    [
+     "2026-09-06",
+     0
+    ],
+    [
+     "2026-09-07",
+     0
+    ],
+    [
+     "2026-09-08",
+     30
+    ],
+    [
+     "2026-09-09",
+     2
+    ],
+    [
+     "2026-09-10",
+     21
+    ],
+    [
+     "2026-09-11",
+     1
+    ],
+    [
+     "2026-09-12",
+     4
+    ],
+    [
+     "2026-09-13",
+     1
+    ],
+    [
+     "2026-09-14",
+     0
+    ],
+    [
+     "2026-09-15",
+     0
+    ],
+    [
+     "2026-09-16",
+     20
+    ],
+    [
+     "2026-09-17",
+     1
+    ],
+    [
+     "2026-09-18",
+     2
+    ],
+    [
+     "2026-09-19",
+     7
+    ],
+    [
+     "2026-09-20",
+     0
+    ],
+    [
+     "2026-09-21",
+     1
+    ],
+    [
+     "2026-09-22",
+     0
+    ],
+    [
+     "2026-09-23",
+     5
+    ],
+    [
+     "2026-09-24",
+     9
+    ],
+    [
+     "2026-09-25",
+     3
+    ],
+    [
+     "2026-09-26",
+     3
+    ],
+    [
+     "2026-09-27",
+     2
+    ],
+    [
+     "2026-09-28",
+     0
+    ],
+    [
+     "2026-09-29",
+     3
+    ],
+    [
+     "2026-09-30",
+     9
+    ],
+    [
+     "2026-10-01",
+     2
+    ],
+    [
+     "2026-10-02",
+     0
+    ],
+    [
+     "2026-10-03",
+     9
+    ],
+    [
+     "2026-10-04",
+     3
+    ],
+    [
+     "2026-10-05",
+     6
+    ],
+    [
+     "2026-10-06",
+     9
+    ],
+    [
+     "2026-10-07",
+     12
+    ],
+    [
+     "2026-10-08",
+     9
+    ],
+    [
+     "2026-10-09",
+     17
+    ],
+    [
+     "2026-10-10",
+     27
+    ],
+    [
+     "2026-10-11",
+     1
+    ],
+    [
+     "2026-10-12",
+     0
+    ],
+    [
+     "2026-10-13",
+     5
+    ],
+    [
+     "2026-10-14",
+     11
+    ],
+    [
+     "2026-10-15",
+     9
+    ],
+    [
+     "2026-10-16",
+     0
+    ],
+    [
+     "2026-10-17",
+     2
+    ],
+    [
+     "2026-10-18",
+     8
+    ],
+    [
+     "2026-10-19",
+     10
+    ],
+    [
+     "2026-10-20",
+     7
+    ],
+    [
+     "2026-10-21",
+     15
+    ]
+   ],
+   "latest": 51,
+   "baseline": 40.5,
+   "ratio": 1.259,
+   "z": 0.51,
+   "anomaly": false,
+   "baseline_weeks": 12,
+   "method": "blocks = sums of non-overlapping 7-day windows counted back from the last complete UTC day (daily series; null days drop the block) or the weekly values (weekly series); latest = the newest block, fit = the previous up to 12 blocks. TREND: Theil-Sen slope of log(count+1) over the fit blocks, reported as %/week when Kendall tau p < 0.05 and |slope| >= 5%/week; a trend is never an anomaly. ANOMALY (spike or drop): latest against the trend extrapolated one block ahead, r = log(latest+1) - log(expected+1); flagged when |r| >= log(1.8), |r| >= 3 x the median absolute deviation of the fit residuals, the larger of latest and expected is >= 5, and there are at least 4 fit blocks. baseline = median of the fit blocks (shown for scale only). Known gaps: blocks are not calendar-aligned, GitHub counts of the newest days can still be backfilled, holidays are not tagged (method reviewed by a second model, 2026-10-21).",
+   "means": "More documented real-world harms from AI systems being added to the public record.",
+   "not_proof": "Report counts depend on volunteer editors' pace and batch uploads; most incidents are not loss of control.",
+   "error": null,
+   "feed_window": "2026-10-09..2026-10-21",
+   "incident_ids_in_feed": 40,
+   "max_incident_id": 1775,
+   "note": "GraphQL API needs a login; RSS covers only the latest ~100 reports (about two weeks). Days before the feed window come from our own earlier runs, or from the public weekly snapshot of 2026-10-19 (reports.date_submitted, which matches the RSS pubDate). Editors upload in batches, so single weeks are lumpy.",
+   "trend_pct_week": -0.1,
+   "trend_p": 1.0,
+   "trend": false,
+   "expected": 40.3
+  },
   {
    "id": "cisa-kev",
    "family": "cyber",
@@ -393,394 +925,6 @@
    "trend_p": 0.1314,
    "trend": false,
    "expected": 9.5
-  },
-  {
-   "id": "aiid-reports",
-   "family": "incidents",
-   "name": "AI Incident Database: new reports",
-   "unit": "reports/day",
-   "source": "AI Incident Database (RSS)",
-   "source_url": "https://incidentdatabase.ai",
-   "series": [
-    [
-     "2026-07-22",
-     null
-    ],
-    [
-     "2026-07-23",
-     null
-    ],
-    [
-     "2026-07-24",
-     null
-    ],
-    [
-     "2026-07-25",
-     null
-    ],
-    [
-     "2026-07-26",
-     null
-    ],
-    [
-     "2026-07-27",
-     null
-    ],
-    [
-     "2026-07-28",
-     null
-    ],
-    [
-     "2026-07-29",
-     null
-    ],
-    [
-     "2026-07-30",
-     null
-    ],
-    [
-     "2026-07-31",
-     null
-    ],
-    [
-     "2026-08-01",
-     null
-    ],
-    [
-     "2026-08-02",
-     null
-    ],
-    [
-     "2026-08-03",
-     null
-    ],
-    [
-     "2026-08-04",
-     null
-    ],
-    [
-     "2026-08-05",
-     null
-    ],
-    [
-     "2026-08-06",
-     null
-    ],
-    [
-     "2026-08-07",
-     null
-    ],
-    [
-     "2026-08-08",
-     null
-    ],
-    [
-     "2026-08-09",
-     null
-    ],
-    [
-     "2026-08-10",
-     null
-    ],
-    [
-     "2026-08-11",
-     null
-    ],
-    [
-     "2026-08-12",
-     null
-    ],
-    [
-     "2026-08-13",
-     null
-    ],
-    [
-     "2026-08-14",
-     null
-    ],
-    [
-     "2026-08-15",
-     null
-    ],
-    [
-     "2026-08-16",
-     null
-    ],
-    [
-     "2026-08-17",
-     null
-    ],
-    [
-     "2026-08-18",
-     null
-    ],
-    [
-     "2026-08-19",
-     null
-    ],
-    [
-     "2026-08-20",
-     null
-    ],
-    [
-     "2026-08-21",
-     null
-    ],
-    [
-     "2026-08-22",
-     null
-    ],
-    [
-     "2026-08-23",
-     null
-    ],
-    [
-     "2026-08-24",
-     null
-    ],
-    [
-     "2026-08-25",
-     null
-    ],
-    [
-     "2026-08-26",
-     null
-    ],
-    [
-     "2026-08-27",
-     null
-    ],
-    [
-     "2026-08-28",
-     null
-    ],
-    [
-     "2026-08-29",
-     null
-    ],
-    [
-     "2026-08-30",
-     null
-    ],
-    [
-     "2026-08-31",
-     null
-    ],
-    [
-     "2026-09-01",
-     null
-    ],
-    [
-     "2026-09-02",
-     null
-    ],
-    [
-     "2026-09-03",
-     null
-    ],
-    [
-     "2026-09-04",
-     null
-    ],
-    [
-     "2026-09-05",
-     null
-    ],
-    [
-     "2026-09-06",
-     null
-    ],
-    [
-     "2026-09-07",
-     null
-    ],
-    [
-     "2026-09-08",
-     null
-    ],
-    [
-     "2026-09-09",
-     null
-    ],
-    [
-     "2026-09-10",
-     null
-    ],
-    [
-     "2026-09-11",
-     null
-    ],
-    [
-     "2026-09-12",
-     null
-    ],
-    [
-     "2026-09-13",
-     null
-    ],
-    [
-     "2026-09-14",
-     null
-    ],
-    [
-     "2026-09-15",
-     null
-    ],
-    [
-     "2026-09-16",
-     null
-    ],
-    [
-     "2026-09-17",
-     null
-    ],
-    [
-     "2026-09-18",
-     null
-    ],
-    [
-     "2026-09-19",
-     null
-    ],
-    [
-     "2026-09-20",
-     null
-    ],
-    [
-     "2026-09-21",
-     null
-    ],
-    [
-     "2026-09-22",
-     null
-    ],
-    [
-     "2026-09-23",
-     null
-    ],
-    [
-     "2026-09-24",
-     null
-    ],
-    [
-     "2026-09-25",
-     null
-    ],
-    [
-     "2026-09-26",
-     null
-    ],
-    [
-     "2026-09-27",
-     null
-    ],
-    [
-     "2026-09-28",
-     null
-    ],
-    [
-     "2026-09-29",
-     null
-    ],
-    [
-     "2026-09-30",
-     null
-    ],
-    [
-     "2026-10-01",
-     null
-    ],
-    [
-     "2026-10-02",
-     null
-    ],
-    [
-     "2026-10-03",
-     null
-    ],
-    [
-     "2026-10-04",
-     null
-    ],
-    [
-     "2026-10-05",
-     null
-    ],
-    [
-     "2026-10-06",
-     null
-    ],
-    [
-     "2026-10-07",
-     null
-    ],
-    [
-     "2026-10-08",
-     9
-    ],
-    [
-     "2026-10-09",
-     17
-    ],
-    [
-     "2026-10-10",
-     27
-    ],
-    [
-     "2026-10-11",
-     1
-    ],
-    [
-     "2026-10-12",
-     0
-    ],
-    [
-     "2026-10-13",
-     5
-    ],
-    [
-     "2026-10-14",
-     11
-    ],
-    [
-     "2026-10-15",
-     9
-    ],
-    [
-     "2026-10-16",
-     0
-    ],
-    [
-     "2026-10-17",
-     2
-    ],
-    [
-     "2026-10-18",
-     8
-    ],
-    [
-     "2026-10-19",
-     10
-    ],
-    [
-     "2026-10-20",
-     7
-    ]
-   ],
-   "latest": 47,
-   "baseline": null,
-   "ratio": null,
-   "z": null,
-   "anomaly": false,
-   "baseline_weeks": 0,
-   "method": "blocks = sums of non-overlapping 7-day windows counted back from the last complete UTC day (daily series; null days drop the block) or the weekly values (weekly series); latest = the newest block, fit = the previous up to 12 blocks. TREND: Theil-Sen slope of log(count+1) over the fit blocks, reported as %/week when Kendall tau p < 0.05 and |slope| >= 5%/week; a trend is never an anomaly. ANOMALY (spike or drop): latest against the trend extrapolated one block ahead, r = log(latest+1) - log(expected+1); flagged when |r| >= log(1.8), |r| >= 3 x the median absolute deviation of the fit residuals, the larger of latest and expected is >= 5, and there are at least 4 fit blocks. baseline = median of the fit blocks (shown for scale only). Known gaps: blocks are not calendar-aligned, GitHub counts of the newest days can still be backfilled, holidays are not tagged (method reviewed by a second model, 2026-10-21).",
-   "means": "More documented real-world harms from AI systems being added to the public record.",
-   "not_proof": "Report counts depend on volunteer editors' pace and batch uploads; most incidents are not loss of control.",
-   "error": null,
-   "feed_window": "2026-10-09..2026-10-21",
-   "incident_ids_in_feed": 40,
-   "max_incident_id": 1775,
-   "note": "GraphQL API needs a login; RSS covers only the latest ~100 reports (about two weeks), so history before the first run is null and builds up daily. pubDate is the report date set by the editors."
   },
   {
    "id": "hn-rogue-ai",

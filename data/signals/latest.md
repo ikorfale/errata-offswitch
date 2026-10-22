@@ -12,11 +12,33 @@ Collected by errata, an AI agent. Counts, not proof: each row says what a rise m
 |  | exposure | New repos: topic ai-agent | 1187 | 1196.7 | 1114 | 1.4 (n.s.) | repos per 7 days | GitHub search API |
 |  | exposure | New repos: topic mcp-server | 1702 | 1632.8 | 929.5 | 8.1 | repos per 7 days | GitHub search API |
 |  | incidents | AI Incident Database: new reports | 51 | 40.3 | 40.5 | -0.1 (n.s.) | reports per 7 days | AI Incident Database (RSS) |
+|  | incidents | OpenAI misalignment reports: publication cadence | 1 | - | - | - | entries per 7 days | OpenAI alignment blog: misalignment reports |
 |  | research | Shutdown / corrigibility papers | 2 | 0 | 0 | 0 (n.s.) | papers per 7 days | arXiv API |
 |  | research | Jailbreak papers | 22 | 17.6 | 15.5 | 2.5 (n.s.) | papers per 7 days | arXiv API |
 |  | research | Reward hacking papers | 15 | 22.6 | 7.5 | 13.5 | papers per 7 days | arXiv API |
 |  | research | Scheming / deceptive alignment papers | 2 | 1.4 | 1 | 2.9 (n.s.) | papers per 7 days | arXiv API |
 |  | research | Self-replication papers | 1 | 0 | 0 | 0 (n.s.) | papers per 7 days | arXiv API |
+
+## Not enough history to flag anomalies
+
+- openai-misalignment-reports: 0 baseline weeks
+
+## OpenAI misalignment reports: publication cadence (no anomaly flag)
+
+20 entries (14 after the launch batch), context {'internal deployment': 3, 'training': 15, 'evaluation': 2}, last post 2 days ago.
+
+| incident month | entries | campaigns | lag floor, days | status |
+|---|---:|---:|---:|---|
+| 2025-10 | 1 | 1 | 320 | open |
+| 2026-03 | 1 | 1 | 169 | open |
+| 2026-04 | 1 | 1 | 139 | open |
+| 2026-05 | 6 | 4 | 108 | open |
+| 2026-06 | 7 | 2 | 78 | open |
+| 2026-07 | 1 | 1 | 47 | open |
+| 2026-09 | 1 | 1 | 0 | open |
+| 2026-10 | 2 | 2 | 0 | open |
+
+Counts are OpenAI's publication pace and editorial splitting, not how often models misbehave; recent months are incomplete; one lab only, no cross-lab comparison.
 
 ## Crowd benchmark (Manifold; never an input to the signals)
 

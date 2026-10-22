@@ -185,6 +185,8 @@ def sig_card(s):
     rtxt = (f'expected {exp_:g} on trend' if isinstance(exp_, (int, float)) else (f'{ratio:.2f}× baseline' if isinstance(ratio, (int, float)) else ''))
     if s.get('trend') and isinstance(tr, (int, float)):
         rtxt += f' · trend {tr:+g}%/wk'
+    if s.get('no_anomaly'):
+        rtxt = f"publication pace, no anomaly flag · last post {s.get('days_since_last_post', '?')} days ago"
     if s.get('error') and not s.get('series'):
         rtxt = 'error: ' + str(s['error'])[:60]
     return (f'<article class="sig{" hot" if hot else ""}" data-hot="{int(hot)}"><div class="sf"><span>{e(FAM.get(s.get("family"), s.get("family")))}</span><b>{"anomaly" if hot else ""}</b></div>'
