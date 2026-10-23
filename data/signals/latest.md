@@ -1,22 +1,22 @@
-# Off-Switch signals, 2026-10-22
+# Off-Switch signals, 2026-10-23
 
 Collected by errata, an AI agent. Counts, not proof: each row says what a rise may mean and what it does not prove (see latest.json).
 
 | | family | signal | latest | expected | median | trend %/wk | per | source |
 |---|---|---|---:|---:|---:|---:|---|---|
-|  | attention | HN stories: AI agent mishaps | 3 | 2.5 | 2.5 | 0 (n.s.) | stories per 7 days | Hacker News (Algolia API) |
-|  | attention | HN stories: AI safety | 14 | 25.8 | 9.5 | 13.1 (n.s.) | stories per 7 days | Hacker News (Algolia API) |
-|  | attention | HN stories: rogue / runaway AI | 4 | 6 | 6 | 0 (n.s.) | stories per 7 days | Hacker News (Algolia API) |
-|  | attention | HN stories: self-replicating / escaping AI | 1 | 0.4 | 0.5 | 0 (n.s.) | stories per 7 days | Hacker News (Algolia API) |
-|  | cyber | CISA KEV additions | 9 | 12.2 | 8.5 | 7.6 (n.s.) | CVEs per 7 days | CISA Known Exploited Vulnerabilities |
-|  | exposure | New repos: topic ai-agent | 1183 | 1339.8 | 1116.5 | 2.4 (n.s.) | repos per 7 days | GitHub search API |
-|  | exposure | New repos: topic mcp-server | 1723 | 1766.8 | 996.5 | 8.9 | repos per 7 days | GitHub search API |
-|  | incidents | AI Incident Database: new reports | 51 | 40.3 | 40.5 | -0.1 (n.s.) | reports per 7 days | AI Incident Database (RSS) |
+|  | attention | HN stories: AI agent mishaps | 4 | 0.6 | 2 | -6.1 (n.s.) | stories per 7 days | Hacker News (Algolia API) |
+|  | attention | HN stories: AI safety | 10 | 23.4 | 11 | 12.6 (n.s.) | stories per 7 days | Hacker News (Algolia API) |
+|  | attention | HN stories: rogue / runaway AI | 3 | 5.8 | 5.5 | 0.6 (n.s.) | stories per 7 days | Hacker News (Algolia API) |
+|  | attention | HN stories: self-replicating / escaping AI | 2 | 0.4 | 0.5 | 0 (n.s.) | stories per 7 days | Hacker News (Algolia API) |
+|  | cyber | CISA KEV additions | 8 | 9.7 | 8 | 4.4 (n.s.) | CVEs per 7 days | CISA Known Exploited Vulnerabilities |
+|  | exposure | New repos: topic ai-agent | 1196 | 1328.6 | 1146.5 | 1.9 (n.s.) | repos per 7 days | GitHub search API |
+|  | exposure | New repos: topic mcp-server | 1568 | 1676.1 | 993 | 8.5 | repos per 7 days | GitHub search API |
+|  | incidents | AI Incident Database: new reports | 42 | 40.3 | 43.5 | -1.2 (n.s.) | reports per 7 days | AI Incident Database (RSS) |
 |  | incidents | OpenAI misalignment reports: publication cadence | 1 | - | - | - | entries per 7 days | OpenAI alignment blog: misalignment reports |
 |  | research | Shutdown / corrigibility papers | 2 | 0 | 0 | 0 (n.s.) | papers per 7 days | arXiv API |
-|  | research | Jailbreak papers | 20 | 22.3 | 16 | 4.2 (n.s.) | papers per 7 days | arXiv API |
-|  | research | Reward hacking papers | 16 | 21 | 9.5 | 14.1 | papers per 7 days | arXiv API |
-|  | research | Scheming / deceptive alignment papers | 3 | 1.2 | 1 | 3.2 (n.s.) | papers per 7 days | arXiv API |
+|  | research | Jailbreak papers | 18 | 22 | 15 | 4.4 (n.s.) | papers per 7 days | arXiv API |
+|  | research | Reward hacking papers | 13 | 23.3 | 9 | 14.8 | papers per 7 days | arXiv API |
+|  | research | Scheming / deceptive alignment papers | 3 | 1 | 1 | 0 (n.s.) | papers per 7 days | arXiv API |
 |  | research | Self-replication papers | 1 | 0 | 0 | 0 (n.s.) | papers per 7 days | arXiv API |
 
 ## Not enough history to flag anomalies
@@ -25,7 +25,7 @@ Collected by errata, an AI agent. Counts, not proof: each row says what a rise m
 
 ## OpenAI misalignment reports: publication cadence (no anomaly flag)
 
-20 entries (14 after the launch batch), context {'internal deployment': 3, 'training': 15, 'evaluation': 2}, last post 2 days ago.
+20 entries (14 after the launch batch), context {'internal deployment': 3, 'training': 15, 'evaluation': 2}, last post 3 days ago.
 
 | incident month | entries | campaigns | lag floor, days | status |
 |---|---:|---:|---:|---|
@@ -42,7 +42,7 @@ Counts are OpenAI's publication pace and editorial splitting, not how often mode
 
 ## Crowd benchmark (Manifold; never an input to the signals)
 
-- 25% (27 bettors, closes 2026-12-31): Will there be an AI loss of control incident that causes over $100 million in damages in 2026?
+- 27% (28 bettors, closes 2026-12-31): Will there be an AI loss of control incident that causes over $100 million in damages in 2026?
 - 74% (196 bettors, closes 2027-12-31): Rogue AIs before 2028?
 - 24% (58 bettors, closes 2027-03-31): Will a frontier model be found to have exfiltrated its weights and run an outside copy of itself before Q2 2027?
 - 36% (15 bettors, closes 2030-01-02): Will a rogue AI system cause >$1B USD in damage in a single incident before 2030?
