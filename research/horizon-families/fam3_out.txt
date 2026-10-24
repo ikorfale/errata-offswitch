@@ -1,0 +1,22 @@
+model                                  release    b_within gap_within gap_METR
+gpt_4                                  2023-03-14    0.697        4.0      4.5
+gpt_4_1106_inspect                     2023-11-06    0.633        4.6      5.2
+claude_3_opus_inspect                  2024-03-04    0.554        5.7      6.2
+gpt_4_turbo_inspect                    2024-04-09    0.784        3.4      4.0
+gpt_4o_inspect                         2024-05-13    0.588        5.1      5.5
+claude_3_5_sonnet_20240620_inspect     2024-06-20    0.497        6.9      6.8
+o1_preview                             2024-09-12    0.607        4.9      4.6
+claude_3_5_sonnet_20241022_inspect     2024-10-22    0.429        9.4      7.9
+o1_inspect                             2024-12-05    0.510        6.6      5.5
+claude_3_7_sonnet_inspect              2025-02-24    0.514        6.5      5.0
+o3_inspect                             2025-04-16    0.541        5.9      4.0
+claude_4_opus_inspect                  2025-05-22    0.480        7.4      4.9
+claude_4_1_opus_inspect                2025-08-05    0.530        6.1      4.3
+gpt_5_2025_08_07_inspect               2025-08-07    0.391       11.7      5.3
+gemini_3_pro                           2025-11-18    0.452        8.4      4.1
+gpt_5_1_codex_max_inspect              2025-11-19    0.432        9.2      4.4
+claude_opus_4_5_inspect                2025-11-24    0.325       19.3      5.9
+gpt_5_2                                2025-12-11    0.325       19.2      5.3
+claude_opus_4_6_inspect                2026-02-05    0.161      390.4     10.3
+gpt_5_3_codex                          2026-02-05    0.291       27.2      6.4
+trend of log2(within gap) on date, 20 models 2023+: +1.14 log2/yr (x2.21 per year)

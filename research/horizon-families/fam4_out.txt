@@ -1,0 +1,28 @@
+unweighted all tasks                        shared within-cell slope 0.621  p50/p80 x4.7
+unweighted no SWAA                          shared within-cell slope 0.596  p50/p80 x5.0
+unweighted all, without Opus 4.6            shared within-cell slope 0.619  p50/p80 x4.7
+unweighted 11 models up to o3 (Apr 2025)    shared within-cell slope 0.615  p50/p80 x4.8
+weighted   all tasks                        shared within-cell slope 0.573  p50/p80 x5.3
+weighted   no SWAA                          shared within-cell slope 0.556  p50/p80 x5.6
+weighted   all, without Opus 4.6            shared within-cell slope 0.577  p50/p80 x5.3
+weighted   11 models up to o3 (Apr 2025)    shared within-cell slope 0.576  p50/p80 x5.3
+  per-model unweighted Claude 3 Opus (Inspect)              b 0.559  x   5.6  informative cells 19
+  per-model unweighted Claude 3.5 Sonnet (New) (Inspect)    b 0.541  x   5.9  informative cells 23
+  per-model unweighted Claude 3.5 Sonnet (Old) (Inspect)    b 0.519  x   6.4  informative cells 23
+  per-model unweighted Claude 3.7 Sonnet (Inspect)          b 0.683  x   4.1  informative cells 20
+  per-model unweighted Claude 4 Opus (Inspect)              b 0.536  x   6.0  informative cells 21
+  per-model unweighted Claude 4.1 Opus (Inspect)            b 0.672  x   4.2  informative cells 18
+  per-model unweighted Claude Opus 4.5 (Inspect)            b 0.814  x   3.3  informative cells 14
+  per-model unweighted Claude Opus 4.6 (Inspect)            b 0.528  x   6.2  informative cells 16
+  per-model unweighted GPT-4 0314                           b 0.886  x   3.0  informative cells 18
+  per-model unweighted GPT-4 1106 (Inspect)                 b 0.876  x   3.0  informative cells 20
+  per-model unweighted GPT-4 Turbo (Inspect)                b 0.421  x   9.8  informative cells 19
+  per-model unweighted GPT-4o (Inspect)                     b 0.351  x  15.5  informative cells 21
+  per-model unweighted GPT-5 (Inspect)                      b 0.638  x   4.5  informative cells 17
+  per-model unweighted GPT-5.1-Codex-Max (Inspect)          b 0.673  x   4.2  informative cells 12
+  per-model unweighted GPT-5.2                              b 0.584  x   5.2  informative cells 11
+  per-model unweighted GPT-5.3-Codex                        b 0.430  x   9.3  informative cells 15
+  per-model unweighted Gemini 3 Pro                         b 1.277  x   2.1  informative cells 10
+  per-model unweighted o1 (Inspect)                         b 0.545  x   5.8  informative cells 23
+  per-model unweighted o1-preview                           b 0.696  x   4.0  informative cells 27
+  per-model unweighted o3 (Inspect)                         b 0.655  x   4.3  informative cells 15
