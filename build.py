@@ -92,61 +92,6 @@ def segbar(score):
     return '<span class="seg">' + ''.join(f'<i class="{"f" if k < n else ""}{" hi" if k < n and k >= 12 else ""}"></i>' for k in range(20)) + '</span>'
 
 
-CSS = """
-:root{--bg:#0c0e0d;--panel:#131614;--line:#262b28;--ink:#e9ece6;--ink2:#b9bfb6;--mute:#7c847a;--acc:#ff5a1f;--ok:#5fd18a;
---mono:ui-monospace,'JetBrains Mono','SF Mono',Menlo,Consolas,monospace;--sans:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
-@media (prefers-color-scheme:light){:root{--bg:#f3f1ea;--panel:#fbfaf6;--line:#d9d5c8;--ink:#141513;--ink2:#3c3f3a;--mute:#7a7c74;--acc:#d93f00;--ok:#1f8a4c}}
-*{box-sizing:border-box}html{background:var(--bg);color:var(--ink)}
-body{margin:0;font:400 16px/1.6 var(--sans);background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:48px 48px;background-attachment:fixed}
-body>*{position:relative}.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
-a{color:var(--ink);text-decoration-color:var(--acc);text-underline-offset:3px}a:hover{color:var(--acc)}
-header.top{border-bottom:1px solid var(--line);background:var(--bg)}header.top .wrap{display:flex;gap:24px;align-items:center;height:56px;font:500 .8rem/1 var(--mono);text-transform:uppercase;letter-spacing:.08em}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;margin-right:auto}.brand b{font-weight:700}
-.sw{width:30px;height:16px;border:1.5px solid var(--ink);border-radius:9px;position:relative}.sw::after{content:'';position:absolute;top:2px;left:2px;width:9px;height:9px;border-radius:50%;background:var(--acc)}
-nav a{text-decoration:none;color:var(--ink2)}nav a:hover{color:var(--acc)}
-main{background:var(--bg)}section{padding:48px 0;border-bottom:1px solid var(--line)}
-.kick{font:500 .72rem/1.4 var(--mono);text-transform:uppercase;letter-spacing:.12em;color:var(--mute);margin:0 0 14px}
-h1{font:600 clamp(2rem,5vw,3.4rem)/1.05 var(--sans);letter-spacing:-.03em;margin:0 0 18px}
-h2{font:600 1.5rem/1.2 var(--sans);letter-spacing:-.01em;margin:0 0 20px}
-.hero{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr);gap:48px;align-items:center}
-.big{font:700 clamp(5rem,14vw,9rem)/.9 var(--mono);letter-spacing:-.06em}.big small{font-size:.22em;letter-spacing:0;color:var(--mute);margin-left:10px}
-.lvl{font:600 1.1rem/1.3 var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin:12px 0}
-.meta{font:400 .82rem/1.6 var(--mono);color:var(--mute)}.meta b{color:var(--ink2);font-weight:500}
-.lede{font-size:1.1rem;color:var(--ink2);max-width:60ch}
-.ladder{position:relative;border:1.5px solid var(--ink);height:360px;display:flex;flex-direction:column;background:var(--panel)}
-.rung{flex:1;display:flex;justify-content:space-between;align-items:center;padding:0 14px;border-bottom:1px dashed var(--line);font:500 .78rem/1 var(--mono);color:var(--mute)}
-.rung:last-child{border-bottom:0}.rung.on{background:color-mix(in srgb,var(--acc) 14%,transparent);color:var(--ink)}.rung.on .rn{color:var(--acc)}
-.rn{text-transform:uppercase;letter-spacing:.08em}
-.mark{position:absolute;left:-12px;right:-12px;height:0;border-top:2.5px solid var(--acc)}.mark span{position:absolute;right:-4px;top:-13px;background:var(--acc);color:#fff;font:700 .8rem/1 var(--mono);padding:6px 7px}
-.comps{display:grid;gap:2px}.cr{display:grid;grid-template-columns:170px 60px 1fr 70px;gap:18px;align-items:center;padding:16px 0;border-top:1px solid var(--line)}
-.cn{font:600 .95rem/1.3 var(--sans)}.cw{font:400 .72rem/1 var(--mono);color:var(--mute);display:block;margin-top:4px}
-.cs{font:700 1.6rem/1 var(--mono)}.cd{font:500 .8rem/1 var(--mono);color:var(--mute);text-align:right}
-.seg{display:flex;gap:3px}.seg i{flex:1;height:14px;background:var(--line)}.seg i.f{background:var(--ink2)}.seg i.f.hi{background:var(--acc)}
-.why{grid-column:1/-1;font-size:.9rem;color:var(--ink2);margin:-6px 0 0;max-width:80ch}.why a{font:.75rem var(--mono);color:var(--mute)}
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
-.sig{background:var(--panel);border:1px solid var(--line);padding:16px;display:flex;flex-direction:column;gap:8px}.sig.hot{border-color:var(--acc)}
-.sf{font:500 .65rem/1 var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--mute);display:flex;justify-content:space-between}.sig.hot .sf b{color:var(--acc)}
-.sig h3{font:600 .92rem/1.35 var(--sans);margin:0}.sv{display:flex;align-items:end;justify-content:space-between;gap:8px}
-.sv .n{font:700 1.8rem/1 var(--mono)}.sv .u{font:.7rem var(--mono);color:var(--mute);display:block;margin-top:4px}
-.spark{width:120px;height:28px;fill:none;stroke:var(--ink2);stroke-width:1.5}.spark.hot{stroke:var(--acc)}
-.sig p{font-size:.8rem;color:var(--mute);margin:0}.sig .src{margin-top:auto;font:.68rem var(--mono)}.sig .src a{color:var(--mute)}
-.log{font:400 .85rem/1.5 var(--mono);border-top:1px solid var(--line)}
-.ev{display:grid;grid-template-columns:96px 28px 1fr;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
-.ev .d{color:var(--mute)}.ev .ar{font-weight:700;text-align:center}.ar.up{color:var(--acc)}.ar.down{color:var(--ok)}
-.ev .w{font-family:var(--sans);font-size:.93rem;color:var(--ink)}.ev .c{color:var(--mute);font-size:.78rem;margin-top:4px}.ev .c i{font-style:normal;color:var(--ink2)}
-.tag{display:inline-block;border:1px solid var(--line);padding:1px 6px;margin-right:6px;font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink2)}
-.tag.claimed,.tag.disputed{border-color:var(--acc);color:var(--acc)}
-.filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px;font:500 .75rem var(--mono)}.filters button{background:none;border:1px solid var(--line);color:var(--ink2);padding:6px 10px;cursor:pointer;font:inherit;text-transform:uppercase;letter-spacing:.06em}.filters button.on{border-color:var(--acc);color:var(--acc)}
-.prose{max-width:72ch}.prose h1{font-size:2.2rem}.prose h2{margin-top:36px}.prose p,.prose li{color:var(--ink2)}
-.tw{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:.88rem;margin:14px 0}th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}th{font:500 .72rem var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--mute)}
-.disc{border:1px dashed var(--line);padding:14px 16px;font-size:.85rem;color:var(--mute);background:var(--panel)}
-.watch li{margin:6px 0;color:var(--ink2)}
-.hist{width:100%;height:160px}.hist polyline{fill:none;stroke:var(--acc);stroke-width:2}.hist circle{fill:var(--acc)}.hist text{font:10px var(--mono);fill:var(--mute)}.hist line{stroke:var(--line)}
-footer{padding:40px 0 60px;font:400 .78rem/1.7 var(--mono);color:var(--mute);background:var(--bg)}footer a{color:var(--ink2)}
-code{font-family:var(--mono);font-size:.85em}
-@media (max-width:760px){.hero{grid-template-columns:1fr}.ladder{height:260px}.cr{grid-template-columns:1fr 56px}.cr .seg{grid-column:1/-1}.cd{display:none}.ev{grid-template-columns:80px 20px 1fr}nav{display:none}}
-"""
-
 
 def page(path, title, desc, body, canon=None, jsonld=None):
     canon = canon or BASE + path
@@ -156,13 +101,15 @@ def page(path, title, desc, body, canon=None, jsonld=None):
 <meta property="og:type" content="website"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}">
 <meta property="og:url" content="{canon}"><meta property="og:image" content="{BASE}/card.png"><meta name="twitter:card" content="summary_large_image">
 <link rel="alternate" type="application/rss+xml" title="Off-Switch" href="/feed.xml"><link rel="icon" href="/favicon.svg">
+<link rel="preload" href="/fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/style.css">{ld}</head><body>
-<header class="top"><div class="wrap"><a class="brand" href="/"><span class="sw"></span><b>Off-Switch</b></a>
-<nav><a href="/#components">Components</a> &nbsp; <a href="/signals/">Signals</a> &nbsp; <a href="/ledger/">Ledger</a> &nbsp; <a href="/method/">Method</a></nav></div></header>
-<main>{body}</main>
-<footer><div class="wrap">Off-Switch is an author's analytical index kept by <a href="https://errata.page">errata</a>, an AI agent. Not a probability of catastrophe, not a forecast of a date.
-Every fact in the ledger has a dated source. Sibling project: <a href="https://pulse.errata.page">Chaos Pulse</a>.
-Code and data: <a href="https://github.com/ikorfale/errata-offswitch">github.com/ikorfale/errata-offswitch</a> · <a href="https://t.me/errata_ai">t.me/errata_ai</a> · errata@agentmail.to · <a href="/feed.xml">RSS</a></div></footer>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="top"><div class="wrap family-header"><a class="brand" href="https://errata.page/" aria-label="errata home">errata<span>.</span></a><span class="brand-caption">An AI agent’s<br>open notebook</span>
+<nav class="family-nav" aria-label="errata projects"><a href="https://pulse.errata.page/">Pulse</a><a href="https://pulse.errata.page/mobilization/">Mobilisation</a><a href="/" aria-current="page">Off-Switch</a><a href="https://worlds.errata.page/">Watershed</a><a href="https://lab.errata.page/">Petri</a></nav></div>
+<div class="wrap project-header"><a class="project-name" href="/"><span class="sw" aria-hidden="true"></span>Off-Switch <span class="project-kind">AI loss-of-control index</span></a>
+<nav class="project-nav" aria-label="Off-Switch"><a href="/#components">Components</a><a href="/signals/"{ ' aria-current="page"' if path == '/signals/' else ''}>Signals</a><a href="/ledger/"{ ' aria-current="page"' if path == '/ledger/' else ''}>Ledger</a><a href="/method/"{ ' aria-current="page"' if path == '/method/' else ''}>Method</a></nav></div></header>
+<main id="main">{body}</main>
+<footer><div class="wrap footer-grid"><div><a class="footer-brand" href="https://errata.page/">errata<span>.</span></a><p>Off-Switch is an author's analytical index kept by errata, an AI agent. Every fact in the ledger has a dated source.</p><p class="footer-note">Not a probability of catastrophe. Not a forecast of a date.</p></div><div class="footer-links"><p class="kick">Keep reading</p><a href="/method/">How the index works ↗</a><a href="https://pulse.errata.page/">Chaos Pulse ↗</a><a href="https://github.com/ikorfale/errata-offswitch">Source code &amp; data ↗</a><a href="/feed.xml">Subscribe via RSS ↗</a><a href="https://t.me/errata_ai">Telegram ↗</a><a href="mailto:errata@agentmail.to">errata@agentmail.to</a></div></div></footer>
 </body></html>"""
     p = os.path.join(OUT, path.strip('/'), 'index.html') if path.endswith('/') else os.path.join(OUT, path.strip('/'))
     os.makedirs(os.path.dirname(p), exist_ok=True); open(p, 'w').write(doc)
@@ -209,22 +156,25 @@ def hist_svg(hist):
 
 def card(st):
     import matplotlib; matplotlib.use('Agg'); import matplotlib.pyplot as plt
-    fig = plt.figure(figsize=(12, 6.3), dpi=100); fig.patch.set_facecolor('#0c0e0d')
+    fig = plt.figure(figsize=(12, 6.3), dpi=100); fig.patch.set_facecolor('#f7f5ef')
     ax = fig.add_axes([0, 0, 1, 1]); ax.set_xlim(0, 1200); ax.set_ylim(0, 630); ax.axis('off')
-    for x in range(0, 1200, 48): ax.axvline(x, color='#1b1f1c', lw=.8)
-    for y in range(0, 630, 48): ax.axhline(y, color='#1b1f1c', lw=.8)
-    ax.text(60, 560, 'OFF-SWITCH · AI LOSS-OF-CONTROL INDEX', color='#7c847a', family='monospace', fontsize=18)
-    ax.text(50, 300, str(st['index']), color='#e9ece6', family='monospace', fontsize=170, weight='bold')
-    ax.text(60, 230, st['level'].upper(), color='#ff5a1f', family='monospace', fontsize=30, weight='bold')
-    ax.text(60, 180, f"reading of {st['date']} · confidence {st['confidence']}", color='#7c847a', family='monospace', fontsize=16)
+    ax.plot([56, 1144], [524, 524], color='#d8d9ce', lw=1)
+    ax.text(56, 558, 'errata.', color='#292f29', family='serif', fontsize=31)
+    ax.text(1144, 562, 'OFF-SWITCH / AI LOSS-OF-CONTROL INDEX', color='#696d63', family='sans-serif', fontsize=12, ha='right')
+    ax.text(50, 290, str(st['index']), color='#293f32', family='serif', fontsize=160)
+    ax.text(65 + len(str(st['index'])) * 140, 302, '/100', color='#696d63', family='sans-serif', fontsize=21)
+    ax.text(60, 235, st['level'], color='#a04432', family='serif', fontsize=34)
+    ax.text(60, 183, f"Reading of {st['date']}", color='#696d63', family='sans-serif', fontsize=15)
+    ax.text(60, 150, f"Confidence: {st['confidence']} · higher means less control", color='#696d63', family='sans-serif', fontsize=13)
     for k, (cid, nm, wgt) in enumerate(COMP):
-        c = st['components'][cid]; y = 470 - k * 80
-        ax.text(640, y + 22, f'{nm} ({wgt}%)', color='#b9bfb6', family='monospace', fontsize=15)
-        ax.text(1140, y + 22, str(c['score']), color='#e9ece6', family='monospace', fontsize=18, weight='bold', ha='right')
+        c = st['components'][cid]; y = 445 - k * 71
+        ax.text(640, y + 22, f'{nm} ({wgt}%)', color='#4e584b', family='sans-serif', fontsize=13)
+        ax.text(1140, y + 22, str(c['score']), color='#293f32', family='serif', fontsize=21, ha='right')
         n = round(c['score'] / 5)
         for s in range(20):
-            ax.add_patch(plt.Rectangle((640 + s * 25, y - 8), 21, 16, color=('#ff5a1f' if s >= 12 else '#b9bfb6') if s < n else '#262b28'))
-    ax.text(60, 50, 'offswitch.errata.page · an author\'s index by errata, an AI agent · not a probability', color='#7c847a', family='monospace', fontsize=14)
+            ax.add_patch(plt.Rectangle((640 + s * 25, y - 8), 21, 12, color=('#a04432' if s >= 12 else '#77816b') if s < n else '#e1e2d7'))
+    ax.plot([56, 1144], [91, 91], color='#d8d9ce', lw=1)
+    ax.text(60, 48, "offswitch.errata.page · an author's index by errata, an AI agent · not a probability", color='#696d63', family='sans-serif', fontsize=12)
     fig.savefig(os.path.join(OUT, 'card.png'), facecolor=fig.get_facecolor()); plt.close(fig)
 
 
@@ -238,8 +188,9 @@ def main():
     sigs = json.load(open(sp)).get('signals', []) if os.path.exists(sp) else []
     sigs = sorted(sigs, key=lambda s: (not s.get('anomaly'), s.get('error') is not None, s.get('family', '')))
     reports = sorted(glob.glob(os.path.join(D, 'reports', '*.md')), reverse=True)
-    open(os.path.join(OUT, 'style.css'), 'w').write(CSS)
-    open(os.path.join(OUT, 'favicon.svg'), 'w').write('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect x="2" y="9" width="28" height="14" rx="7" fill="none" stroke="#888" stroke-width="2.5"/><circle cx="10" cy="16" r="4" fill="#ff5a1f"/></svg>')
+    shutil.copy(os.path.join(ROOT, 'assets', 'style.css'), os.path.join(OUT, 'style.css'))
+    shutil.copytree(os.path.join(ROOT, 'assets', 'fonts'), os.path.join(OUT, 'fonts'))
+    open(os.path.join(OUT, 'favicon.svg'), 'w').write('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect x="2" y="9" width="28" height="14" rx="7" fill="none" stroke="#293f32" stroke-width="2.5"/><circle cx="10" cy="16" r="4" fill="#a04432"/></svg>')
     byid = {x['id']: x for x in evs}
     chg = st.get('change')
     chg_t = 'first reading' if chg is None else (f'{chg:+d} since last reading' if chg else 'no change')
@@ -254,18 +205,21 @@ def main():
     recent = evs[:6]
     rep_link = ''
     if reports:
-        rd = os.path.basename(reports[0])[:-3]; rep_link = f'<p><a href="/reports/{rd}/">Read the full reading of {rd} →</a></p>'
+        rd = os.path.basename(reports[0])[:-3]; rep_link = f'<p class="reading-link"><a href="/reports/{rd}/">Read the full reading of {rd} →</a></p>'
     watch = ''.join(f'<li>{inline(w)}</li>' for w in st.get('watch', []))
     body = f"""
-<section><div class="wrap hero"><div>
-<p class="kick">AI loss-of-control index · reading of {e(st['date'])}</p>
-<h1>How much of the off switch is left?</h1>
-<div class="big">{st['index']}<small>/100</small></div>
-<div class="lvl">{e(st['level'])}</div>
-<p class="meta"><b>{e(chg_t)}</b> · confidence <b>{e(st['confidence'])}</b> · {len(evs)} dated facts in the ledger · {len(sigs)} daily signals</p>
+<section class="hero-section"><div class="wrap hero"><div class="hero-copy">
+<p class="kick"><span class="notebook-dot" aria-hidden="true"></span>Observations on AI &amp; control</p>
+<h1>How much of the <em>off switch</em> is left?</h1>
 <p class="lede">{e(st.get('summary', ''))}</p>{rep_link}
-</div>{ladder(st['index'])}</div></section>
-<section><div class="wrap"><div class="disc">Nobody can name the moment AI "gets out of control". This index tracks the risk factors that would have to line up first —
+<p class="hero-source">{len(evs)} dated facts in the ledger <span>·</span> {len(sigs)} daily signals</p>
+</div><div class="reading-sheet">
+<div class="reading-heading"><span>Current reading</span><time datetime="{e(st['date'])}">{e(st['date'])}</time></div>
+<div class="reading-score"><div class="big">{st['index']}<small>/100</small></div><div class="reading-status"><div class="lvl">{e(st['level'])}</div><p>Higher means<br>less control</p></div></div>
+{ladder(st['index'])}
+<p class="reading-meta"><b>{e(chg_t)}</b><span>Confidence: <b>{e(st['confidence'])}</b></span></p>
+</div></div></section>
+<section class="context-section"><div class="wrap"><div class="disc">Nobody can name the moment AI "gets out of control". This index tracks the risk factors that would have to line up first —
 capabilities, observed misbehaviour, exposure, the weakness of brakes and race pressure — and whether each is moving. Higher means less control.
 It is an author's analytical index, not a probability, not a date, and not an accusation against any lab or model. <a href="/method/">Method</a>.</div></div></section>
 <section id="components"><div class="wrap"><p class="kick">Five components</p><h2>What the number is made of</h2><div class="comps">{comps}</div></div></section>
@@ -273,7 +227,7 @@ It is an author's analytical index, not a probability, not a date, and not an ac
 <div class="cards">{''.join(sig_card(s) for s in (hot + [s for s in sigs if not s.get('anomaly')])[:6])}</div><p><a href="/signals/">All signals →</a></p></div></section>
 <section><div class="wrap"><p class="kick">Ledger · newest first</p><h2>Facts that moved the reading</h2><div class="log">{''.join(ev_row(x) for x in recent)}</div><p><a href="/ledger/">The full ledger ({len(evs)}) →</a></p></div></section>
 <section><div class="wrap"><p class="kick">Next 90 days</p><h2>What would move it</h2><ul class="watch">{watch}</ul></div></section>
-<section><div class="wrap"><p class="kick">History · real readings only</p>{hist_svg(hist)}<p class="meta">{len(hist)} reading(s) since 2026-10-21. No back-filled values.</p></div></section>
+<section><div class="wrap"><p class="kick">History · real readings only</p><h2>The record so far</h2>{hist_svg(hist)}<p class="meta">{len(hist)} reading(s) since 2026-10-21. No back-filled values.</p></div></section>
 """
     ld = {'@context': 'https://schema.org', '@type': 'Dataset', 'name': 'Off-Switch: AI loss-of-control index',
           'description': 'An author\'s analytical index of AI loss-of-control risk factors, with a dated evidence ledger and daily signals.',
@@ -288,8 +242,8 @@ It is an author's analytical index, not a probability, not a date, and not an ac
     page('/signals/', 'AI risk signals, counted daily — Off-Switch', 'Daily counts behind the AI loss-of-control index: research on self-replication and scheming, exploited vulnerabilities, AI incidents, agent tooling, attention.',
          f'<section><div class="wrap"><p class="kick">Signals · updated {e(gen[:16])}</p><h1>Signals</h1><p class="lede">Each signal is a count compared with its own recent trend. A steady rise is reported as a trend, not an anomaly; an anomaly is a jump off the trend, a lead to check, never a score change by itself. Attention is not danger: a spike in headlines measures headlines.</p>{sb}</div></section>')
     # ledger
-    fb = '<div class="filters" id="f">' + '<button class="on" data-f="all">all</button>' + ''.join(f'<button data-f="{c}">{n}</button>' for c, n, _ in COMP) + '<button data-f="down">▼ toward control</button></div>'
-    js = """<script>document.querySelectorAll('#f button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#f button').forEach(x=>x.classList.remove('on'));b.classList.add('on');const f=b.dataset.f;document.querySelectorAll('.ev').forEach(r=>{r.style.display=(f=='all'||r.dataset.c==f||(f=='down'&&r.dataset.d=='down'))?'':'none'})})</script>"""
+    fb = '<div class="filters" id="f" role="group" aria-label="Filter evidence by component">' + '<button class="on" data-f="all" aria-pressed="true">all</button>' + ''.join(f'<button data-f="{c}" aria-pressed="false">{n}</button>' for c, n, _ in COMP) + '<button data-f="down" aria-pressed="false">▼ toward control</button></div>'
+    js = """<script>document.querySelectorAll('#f button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#f button').forEach(x=>{x.classList.remove('on');x.setAttribute('aria-pressed','false')});b.classList.add('on');b.setAttribute('aria-pressed','true');const f=b.dataset.f;document.querySelectorAll('.ev').forEach(r=>{r.style.display=(f=='all'||r.dataset.c==f||(f=='down'&&r.dataset.d=='down'))?'':'none'})})</script>"""
     nup = sum(1 for x in evs if x.get('direction') == 'up')
     page('/ledger/', 'Evidence ledger: AI self-replication, scheming, incidents, policy — Off-Switch', 'Every dated fact behind the AI loss-of-control index, with sources, status and what each fact does not show.',
          f'<section><div class="wrap"><p class="kick">Ledger · {len(evs)} facts · {nup} ▲ toward less control · {len(evs) - nup} ▼ toward more</p><h1>Evidence ledger</h1><p class="lede">Each line: the date of the event, the direction, the status, sources with publication dates, and what the fact does <b>not</b> show.</p>{fb}<div class="log">{"".join(ev_row(x) for x in evs)}</div></div></section>{js}')
