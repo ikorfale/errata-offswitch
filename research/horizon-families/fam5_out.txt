@@ -1,0 +1,73 @@
+families 79, with >=3 informative cells 35
+  blackbox                           b  -0.612  p50/p80 x     inf  inf cells  16  runs   456  lengths 10-64 min
+  count_words                        b  -0.980  p50/p80 x     inf  inf cells  14  runs   264  lengths 1-2 min
+  detect_data_tampering              b  -0.146  p50/p80 x     inf  inf cells  11  runs   100  lengths 24-80 min
+  esolang                            b  -6.990  p50/p80 x     inf  inf cells   9  runs    83  lengths 18-22 min
+  iclr_authors                       b  -0.849  p50/p80 x     inf  inf cells   4  runs    66  lengths 391-1112 min
+  interpret_data                     b  -4.172  p50/p80 x     inf  inf cells   4  runs    64  lengths 12-14 min
+  network_routing                    b  -0.511  p50/p80 x     inf  inf cells   8  runs    77  lengths 265-319 min
+  reverse_hash                       b  -1.003  p50/p80 x     inf  inf cells  11  runs   270  lengths 2-25 min
+  root_me                            b  -4.090  p50/p80 x     inf  inf cells  11  runs   103  lengths 15-30 min
+  white_box_attack                   b  -3.074  p50/p80 x     inf  inf cells  13  runs   131  lengths 307-600 min
+  interpret_building_data            b   0.033  p50/p80 x2981124778333.0  inf cells  14  runs   136  lengths 3-17 min
+  code2code                          b   0.060  p50/p80 x9008961.7  inf cells   5  runs    45  lengths 300-360 min
+  hypothesis_testing                 b   0.106  p50/p80 x  8323.0  inf cells   9  runs   252  lengths 9-49 min
+  molecule_structure                 b   0.125  p50/p80 x  2207.9  inf cells  14  runs   216  lengths 16-467 min
+  hackthebox                         b   0.190  p50/p80 x   159.3  inf cells   8  runs   112  lengths 7-90 min
+  arithmetic                         b   0.297  p50/p80 x    25.3  inf cells   3  runs   360  lengths 0-1 min
+  audio_classification               b   0.300  p50/p80 x    24.6  inf cells   8  runs    68  lengths 311-360 min
+  web_hacking                        b   0.416  p50/p80 x    10.1  inf cells   8  runs   119  lengths 9-45 min
+  local_research_tex                 b   0.519  p50/p80 x     6.4  inf cells   9  runs   132  lengths 8-16 min
+  pico_ctf                           b   0.602  p50/p80 x     4.9  inf cells  15  runs   460  lengths 2-65 min
+  wikipedia_research                 b   0.633  p50/p80 x     4.6  inf cells   9  runs    84  lengths 1-2 min
+  search_server                      b   0.750  p50/p80 x     3.6  inf cells   4  runs    44  lengths 5-6 min
+  password_check                     b   0.825  p50/p80 x     3.2  inf cells  10  runs   297  lengths 1-32 min
+  prune_attn_heads                   b   1.197  p50/p80 x     2.2  inf cells   7  runs    76  lengths 600-720 min
+  env_scientist                      b   1.760  p50/p80 x     1.7  inf cells  19  runs   861  lengths 44-665 min
+  credit_card_validity               b   1.801  p50/p80 x     1.7  inf cells  11  runs   104  lengths 3-27 min
+  palisade_crackme                   b   2.559  p50/p80 x     1.5  inf cells  18  runs   490  lengths 21-480 min
+  munge_data                         b   2.588  p50/p80 x     1.4  inf cells  20  runs   392  lengths 8-129 min
+  debug_small_libs                   b   2.760  p50/p80 x     1.4  inf cells   8  runs   114  lengths 30-95 min
+  local_research                     b   2.782  p50/p80 x     1.4  inf cells   8  runs    66  lengths 2-4 min
+  rcrce                              b   3.719  p50/p80 x     1.3  inf cells   8  runs    84  lengths 60-270 min
+  symbolic_regression                b   4.940  p50/p80 x     1.2  inf cells  12  runs   133  lengths 47-90 min
+  image_labeling                     b   5.765  p50/p80 x     1.2  inf cells  16  runs   152  lengths 87-147 min
+  alert_triage                       b   8.229  p50/p80 x     1.1  inf cells   6  runs   340  lengths 0-0 min
+  request_routing                    b  38.941  p50/p80 x     1.0  inf cells  10  runs   558  lengths 0-0 min
+not ranked (<3 informative cells): 44
+shared slope all families 0.621 x4.7
+  drop blackbox                           shared x3.74
+  drop count_words                        shared x4.53
+  drop detect_data_tampering              shared x4.63
+  drop esolang                            shared x4.65
+  drop iclr_authors                       shared x4.71
+  drop interpret_data                     shared x4.79
+  drop network_routing                    shared x4.61
+  drop reverse_hash                       shared x3.69
+  drop root_me                            shared x4.51
+  drop white_box_attack                   shared x4.60
+  drop interpret_building_data            shared x4.59
+  drop code2code                          shared x4.71
+  drop hypothesis_testing                 shared x4.65
+  drop molecule_structure                 shared x4.11
+  drop hackthebox                         shared x4.57
+  drop arithmetic                         shared x4.74
+  drop audio_classification               shared x4.74
+  drop web_hacking                        shared x4.71
+  drop local_research_tex                 shared x4.74
+  drop pico_ctf                           shared x4.66
+  drop wikipedia_research                 shared x4.70
+  drop search_server                      shared x4.75
+  drop password_check                     shared x4.92
+  drop prune_attn_heads                   shared x4.74
+  drop env_scientist                      shared x7.22
+  drop credit_card_validity               shared x4.98
+  drop palisade_crackme                   shared x6.00
+  drop munge_data                         shared x5.55
+  drop debug_small_libs                   shared x4.88
+  drop local_research                     shared x4.83
+  drop rcrce                              shared x4.84
+  drop symbolic_regression                shared x4.87
+  drop image_labeling                     shared x4.81
+  drop alert_triage                       shared x4.86
+  drop request_routing                    shared x4.93
