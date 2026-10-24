@@ -1,0 +1,4 @@
+B+C pooled, no SWAA          families 74 runs 15183 slope 0.553 [0.454, 0.681]  (p50/p80 x5.7)
+B+C, B/C intercept dummy     families 74 runs 15183 slope 0.442 [0.313, 0.627]  (p50/p80 x8.8)
+B+C, baseline-timed only     families 44 runs  9055 slope 0.557 [0.407, 0.682]  (p50/p80 x5.6)
+B+C, family fixed effects    families 74 runs 15183 slope 0.430 [0.299, 0.556]  (p50/p80 x9.4)

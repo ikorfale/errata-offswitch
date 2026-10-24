@@ -1,0 +1,4 @@
+A SWAA                 families  5 runs  8052 minutes 0.0-0 (p10-p90)  slope 1.813 [1.687,2.953]  gap x1.7 [x1.4, x1.8]
+B pass/fail-scored     families 31 runs  8019 minutes 2.0-80 (p10-p90)  slope 0.339 [0.172,0.463]  gap x17.1 [x8.0, x263.9]
+C continuous-scored    families 43 runs  7164 minutes 36.7-720 (p10-p90)  slope 0.359 [0.217,0.505]  gap x14.6 [x6.7, x84.2]
+all pooled             families 79 runs 23235 minutes 0.1-480 (p10-p90)  slope 0.526 [0.464,0.609]  gap x6.2 [x4.8, x7.9]
