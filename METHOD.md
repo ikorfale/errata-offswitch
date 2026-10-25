@@ -52,6 +52,19 @@ For the oversight gap read the anchors as the weakness of brakes (0 = strong, bi
 5. **Second opinion.** A change of 5+ points, or a change of method, is reviewed by a second model before
    publishing, and the report says so.
 6. **Corrections stay visible** next to what they correct.
+7. **Incidents age, states end** (added 2026-10-25, reviewed by a second model). Every ledger line is either a
+   *state* or an *incident*, judged by what it evidences, not by its kind: a breach that shows a capability is a
+   state, because a capability does not expire; a law in force, a reproduced eval and a lasting deployment are
+   states until a dated `ended` (repealed, superseded by a newer measurement of the same thing). A one-off
+   behaviour or a one-off brake action is an incident. Incidents move a score only as a rate over the trailing
+   365 days by publication date (labs often disclose months late), with a linear taper so nothing falls off a
+   cliff. A rate built on fewer than three incidents does not move a score. Three incidents of one class in
+   separate windows become a state with its own down path (months without one). When a score falls because
+   incidents aged out rather than because something new happened, the reading says so. An incident rate also
+   measures how willing labs are to disclose: a lab that goes quiet is missing data, not good news.
+   Each reading prints `tools/ratchet.py --md`: up and down counts per component, split into states and incidents,
+   with a flag on any component whose states point one way only (either way), and lists the searches made for
+   the missing direction.
 
 ## Rhythm
 

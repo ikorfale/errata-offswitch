@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build offswitch.errata.page (static) from data/: state.json, history.jsonl, events.jsonl, signals/latest.json,
 reports/*.md and METHOD.md. Output in site/. Stdlib only, plus matplotlib for the share card."""
-import json, os, re, html, glob, shutil, datetime as dt
+import json, os, re, sys, html, glob, shutil, datetime as dt
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 D = os.path.join(ROOT, 'data'); OUT = os.path.join(ROOT, 'site')
@@ -122,7 +122,9 @@ def ev_row(x):
     return (f'<div class="ev" data-c="{e(x.get("component"))}" data-d="{e(x.get("direction"))}" id="{e(x["id"])}"><span class="d">{e(x.get("date_event"))}</span>'
             f'<span class="ar {e(x.get("direction"))}" title="{"toward less control" if x.get("direction") == "up" else "toward more control"}">{arrow}</span>'
             f'<div><div class="w">{e(x.get("what"))}</div><div class="c"><span class="tag">{e(x.get("component"))}</span><span class="tag">{e(x.get("kind", ""))}</span>'
-            f'<span class="tag {e(st)}">{e(st)}</span> Not shown: <i>{e(x.get("caveat", ""))}</i></div><div class="c">{srcs}</div></div></div>')
+            f'<span class="tag">{e(x.get("nature", ""))}</span>' + (f'<span class="tag">ended {e(x["ended"])}</span>' if x.get('ended') else '') +
+            f'<span class="tag {e(st)}">{e(st)}</span> Not shown: <i>{e(x.get("caveat", ""))}</i></div>' +
+            (f'<div class="c"><b>Update:</b> {e(x["update"])}</div>' if x.get('update') else '') + f'<div class="c">{srcs}</div></div></div>')
 
 
 def sig_card(s):
@@ -245,8 +247,15 @@ It is an author's analytical index, not a probability, not a date, and not an ac
     fb = '<div class="filters" id="f" role="group" aria-label="Filter evidence by component">' + '<button class="on" data-f="all" aria-pressed="true">all</button>' + ''.join(f'<button data-f="{c}" aria-pressed="false">{n}</button>' for c, n, _ in COMP) + '<button data-f="down" aria-pressed="false">▼ toward control</button></div>'
     js = """<script>document.querySelectorAll('#f button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#f button').forEach(x=>{x.classList.remove('on');x.setAttribute('aria-pressed','false')});b.classList.add('on');b.setAttribute('aria-pressed','true');const f=b.dataset.f;document.querySelectorAll('.ev').forEach(r=>{r.style.display=(f=='all'||r.dataset.c==f||(f=='down'&&r.dataset.d=='down'))?'':'none'})})</script>"""
     nup = sum(1 for x in evs if x.get('direction') == 'up')
+    sys.path.insert(0, os.path.join(ROOT, 'tools'))
+    import ratchet
+    asof = max(h['date'] for h in jl(os.path.join(D, 'history.jsonl')))
+    rt = ratchet.table(evs, asof, 365)
+    rrows = ''.join(f'<tr><td>{e(c)}</td><td>{r["up_state"]}</td><td>{r["up_incident"]}</td><td>{r["down_state"]}</td><td>{r["down_incident"]}</td><td>{r["up_aged"] + r["down_aged"]}</td><td>{r["up_ended"] + r["down_ended"]}</td></tr>' for c, r in rt.items())
+    rtab = (f'<h2 style="margin-top:28px">Can it go down?</h2><p>As of the latest reading ({e(asof)}). States count until they end; incidents count only for 365 days after publication, tapering (method rule 7). A component whose facts point one way only is flagged in the reading.</p>'
+            f'<table><thead><tr><th>Component</th><th>▲ states</th><th>▲ incidents</th><th>▼ states</th><th>▼ incidents</th><th>aged out</th><th>ended</th></tr></thead><tbody>{rrows}</tbody></table>')
     page('/ledger/', 'Evidence ledger: AI self-replication, scheming, incidents, policy — Off-Switch', 'Every dated fact behind the AI loss-of-control index, with sources, status and what each fact does not show.',
-         f'<section><div class="wrap"><p class="kick">Ledger · {len(evs)} facts · {nup} ▲ toward less control · {len(evs) - nup} ▼ toward more</p><h1>Evidence ledger</h1><p class="lede">Each line: the date of the event, the direction, the status, sources with publication dates, and what the fact does <b>not</b> show.</p>{fb}<div class="log">{"".join(ev_row(x) for x in evs)}</div></div></section>{js}')
+         f'<section><div class="wrap"><p class="kick">Ledger · {len(evs)} facts · {nup} ▲ toward less control · {sum(1 for x in evs if x.get("direction") == "down")} ▼ toward more</p><h1>Evidence ledger</h1><p class="lede">Each line: the date of the event, the direction, the status, sources with publication dates, and what the fact does <b>not</b> show.</p>{rtab}{fb}<div class="log">{"".join(ev_row(x) for x in evs)}</div></div></section>{js}')
     # method
     page('/method/', 'Method: how the AI loss-of-control index is scored — Off-Switch', 'Components, weights, anchors and rules of the Off-Switch AI loss-of-control index.',
          f'<section><div class="wrap prose">{md(open(os.path.join(ROOT, "METHOD.md")).read())}</div></section>')
