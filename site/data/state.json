@@ -47,7 +47,7 @@
   },
   "oversight": {
    "score": 56,
-   "reason": "Transparency laws are in force (SB 53, RAISE, EU GPAI enforcement), but nothing binding gates capabilities. Independent red-teams found OpenAI's internal agent monitoring could be switched off by two headers (claimed patched, unverified) and Anthropic's monitoring weaker than its own evidence suggested. The Fable 5 suspension shows a brake can work.",
+   "reason": "Transparency laws are in force (SB 53, RAISE, EU GPAI enforcement), but nothing binding gates capabilities. Independent red-teams found OpenAI's internal agent monitoring could be switched off by two headers (claimed patched, unverified) and Anthropic's monitoring weaker than its own evidence suggested. The 19-day Fable 5 suspension in June showed a brake can work, but it was lifted, not a standing regime.",
    "evidence": [
     "metr-redteam-openai-monitoring",
     "metr-review-anthropic-risk-report",
