@@ -6,7 +6,7 @@ pages below that is neither cited by a ledger source nor marked reviewed, and ex
   python3 tools/sweep.py --mark URL ...  mark posts reviewed (not ledger-worthy, or entered)
   python3 tools/sweep.py --mark-all      first run only: mark everything currently listed as the baseline
 Reviewed URLs live in data/sweep_reviewed.txt (public: only URLs)."""
-import json, os, re, sys, urllib.request, xml.etree.ElementTree as ET
+import gzip, json, os, re, sys, urllib.request, xml.etree.ElementTree as ET
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 REVIEWED = os.path.join(ROOT, 'data', 'sweep_reviewed.txt')
@@ -26,7 +26,10 @@ PAGES = [  # (name, page, href regex, base)
 
 
 def get(u):
-    return urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=30).read()
+    b = urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=30).read()
+    if b[:2] == b'\x1f\x8b':  # deepmind.google sends gzip unasked
+        b = gzip.decompress(b)
+    return b
 
 
 def norm(u):
