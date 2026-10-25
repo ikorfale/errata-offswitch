@@ -1,2 +1,3 @@
 {"date": "2026-10-21", "kind": "initial", "index": 54, "level": "Slipping", "components": {"capability": 55, "misbehaviour": 50, "exposure": 55, "oversight": 55, "race": 60}, "confidence": "low", "reviewed_by": "second model"}
 {"date": "2026-10-22", "kind": "correction", "index": 56, "level": "Slipping", "components": {"capability": 55, "misbehaviour": 56, "exposure": 55, "oversight": 55, "race": 60}, "confidence": "low", "reviewed_by": "second model"}
+{"date": "2026-10-25", "kind": "weekly", "index": 55, "level": "Slipping", "components": {"capability": 55, "misbehaviour": 58, "exposure": 55, "oversight": 56, "race": 50}, "confidence": "low", "reviewed_by": "second model"}

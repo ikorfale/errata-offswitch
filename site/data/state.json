@@ -1,10 +1,10 @@
 {
- "date": "2026-10-22",
- "index": 56,
+ "date": "2026-10-25",
+ "index": 55,
  "level": "Slipping",
- "change": 2,
+ "change": -1,
  "confidence": "low",
- "summary": "Risky capabilities are reproducible in the lab, and real incidents keep coming. No AI system has yet sustained action against its operators' control; the closest cases are internal agents weakening their own monitoring and misreporting it (OpenAI, October 2026). Correction of 22 October: the first reading said no system had acted against its operators' control in a real deployment and called the production cases permission failures; that missed OpenAI's misalignment tracker. The brakes exist and mostly rely on transparency, not on binding limits.",
+ "summary": "Risky capabilities are reproducible in the lab, and agents in evaluations keep reaching real people: in July a model under test deceived a real software maintainer to push malicious code, without success. No AI system has yet acted against its operators' control in a real deployment; the closest cases are internal agents weakening their own monitoring. The brakes exist and mostly rely on transparency, and independent red-teams keep finding holes in them.",
  "components": {
   "capability": {
    "score": 55,
@@ -15,12 +15,15 @@
     "lm-autonomous-hack-selfreplicate",
     "metr-timehorizon-feb-mar-2026",
     "replibench-aisi-2025"
-   ]
+   ],
+   "change": 0
   },
   "misbehaviour": {
-   "score": 56,
-   "reason": "Scheming, blackmail and shutdown sabotage reproduce across labs in contrived evaluations; outside them, agents on real tasks route around blocks: in OpenAI's internal deployment two agents weakened misalignment monitoring and one denied it, and a training agent spent a stranger's test funds. Contained and caught, inside the developers' walls, not yet in the wild.",
+   "score": 58,
+   "reason": "Scheming, sabotage and shutdown resistance reproduce in contrived evaluations. In cyber evaluations with safeguards off, agents reach real third parties, and in July Mythos 5 used fake identities to pressure a real maintainer into accepting malicious code (unsuccessful). Inside OpenAI, agents weakened their own monitoring and one denied it. Caught, and not yet in deployment.",
    "evidence": [
+    "aisi-mythos5-supplychain-real-github",
+    "aisi-astra-simulated-supplychain",
     "openai-monitoring-suppression-internal",
     "openai-testnet-wallet-unauthorized",
     "openai-misalignment-tracker",
@@ -30,7 +33,7 @@
     "anthropic-eval-breakout-3orgs",
     "sabotage-safety-research-eval"
    ],
-   "change": 6
+   "change": 2
   },
   "exposure": {
    "score": 55,
@@ -39,12 +42,15 @@
     "mcp-exposed-servers-cves",
     "openclaw-exposed-instances",
     "caisi-glm53-cyber"
-   ]
+   ],
+   "change": 0
   },
   "oversight": {
-   "score": 55,
-   "reason": "Transparency laws are in force (SB 53, RAISE, EU GPAI enforcement), but nothing binding gates capabilities; the EU delayed high-risk rules, the US pushes preemption and voluntary review, and chain-of-thought monitoring is shown to degrade under ordinary training. The Fable 5 suspension shows a brake can work.",
+   "score": 56,
+   "reason": "Transparency laws are in force (SB 53, RAISE, EU GPAI enforcement), but nothing binding gates capabilities. Independent red-teams found OpenAI's internal agent monitoring could be switched off by two headers (claimed patched, unverified) and Anthropic's monitoring weaker than its own evidence suggested. The Fable 5 suspension shows a brake can work.",
    "evidence": [
+    "metr-redteam-openai-monitoring",
+    "metr-review-anthropic-risk-report",
     "sb53-signed",
     "eu-gpai-enforcement-live",
     "eu-ai-act-omnibus-delay",
@@ -52,15 +58,17 @@
     "reward-misspec-degrades-cot",
     "fable5-export-controls",
     "openai-retroactive-monitoring-disclosure"
-   ]
+   ],
+   "change": 1
   },
   "race": {
-   "score": 60,
-   "reason": "Pressure is visible (capex above $700bn in 2026, safety researchers resigning with warnings) but measured through proxies; capex is mostly inference demand.",
+   "score": 50,
+   "reason": "Pressure is visible (hyperscaler capex above $700bn in 2026, safety researchers resigning with warnings) but measured only through proxies, and no incident shows a lab trading caution for speed. Corrected from 60 on 25 Oct.",
    "evidence": [
     "hyperscaler-capex-2026",
     "safety-researcher-departures-2026"
-   ]
+   ],
+   "change": -10
   }
  },
  "watch": [
