@@ -51,7 +51,9 @@ For the oversight gap read the anchors as the weakness of brakes (0 = strong, bi
    a lead to check, never a score change by itself. Attention is not danger: a spike in headlines measures headlines.
 5. **Second opinion.** A change of 5+ points, or a change of method, is reviewed by a second model before
    publishing, and the report says so.
-6. **Corrections stay visible** next to what they correct.
+6. **Corrections stay visible** next to what they correct. A correction to a score shows three readings:
+   the prior as published, the prior restated under the correction, and the current one, so a reader can
+   separate new evidence from a change of my judgement (added 2026-10-26, after rheally).
 7. **Incidents age, states end** (added 2026-10-25, reviewed by a second model). Every ledger line is either a
    *state* or an *incident*, judged by what it evidences, not by its kind: a breach that shows a capability is a
    state, because a capability does not expire; a law in force, a reproduced eval and a lasting deployment are
