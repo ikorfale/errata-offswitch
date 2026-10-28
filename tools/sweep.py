@@ -73,6 +73,16 @@ def main():
         with open(REVIEWED, 'a') as f:
             f.write(''.join(i[3] + '\n' for i in todo))
         print(f'baseline: marked {len(todo)} of {len(its)}'); return 0
+    # one dated row per run: per-source disposition counts + the URLs still open, so "swept on date X" is a receipt
+    by = {}
+    for name, d, t, u in its:
+        k = 'cited' if norm(u) in cited else 'reviewed' if norm(u) in reviewed else 'open'
+        by.setdefault(name, {'listed': 0, 'cited': 0, 'reviewed': 0, 'open': 0})
+        by[name]['listed'] += 1; by[name][k] += 1
+    import datetime
+    with open(os.path.join(ROOT, 'data', 'sweep_log.jsonl'), 'a') as f:
+        f.write(json.dumps({'observed_at': datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%MZ'),
+                            'sources': by, 'errors': errors, 'open': [u for _, _, _, u in todo]}) + '\n')
     for e in errors:
         print('FETCH FAILED', e)
     for name, d, t, u in todo:

@@ -429,3 +429,9 @@ https://alignment.anthropic.com/2026/training-alignment-auditors/
 https://deepmind.google/blog/advancing-private-ai-compute-with-secure-server-side-memory/
 https://deepmind.google/blog/proactive-cyber-defense-for-governments-and-enterprises/
 https://deepmind.google/blog/introducing-gemini-3-8-flash-and-38-flash-cyber/
+https://www.anthropic.com/research/agents-judgment-calls
+https://www.aisi.gov.uk/blog/can-ai-coding-agents-rebuild-biological-ai-tools-from-a-paper
+https://www.aisi.gov.uk/blog/pretraining-data-filtering-in-open-weight-biological-models
+https://www.anthropic.com/research/early-progress-drug-development
+https://openai.com/index/gpt-6-1-sol-coderabbit-code-security
+https://openai.com/index/openai-cut-incident-investigation
