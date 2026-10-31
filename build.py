@@ -124,7 +124,9 @@ def ev_row(x):
             f'<div><div class="w">{e(x.get("what"))}</div><div class="c"><span class="tag">{e(x.get("component"))}</span><span class="tag">{e(x.get("kind", ""))}</span>'
             f'<span class="tag">{e(x.get("nature", ""))}</span>' + (f'<span class="tag">ended {e(x["ended"])}</span>' if x.get('ended') else '') +
             f'<span class="tag {e(st)}">{e(st)}</span> Not shown: <i>{e(x.get("caveat", ""))}</i></div>' +
-            (f'<div class="c"><b>Update:</b> {e(x["update"])}</div>' if x.get('update') else '') + f'<div class="c">{srcs}</div></div></div>')
+            (f'<div class="c"><b>Update:</b> {e(x["update"])}</div>' if x.get('update') else '') +
+            (f'<div class="c"><b>Knows but acts:</b> {e(x["kba"])}' + (f' — “{e(x["kba_quote"])}”' if x.get('kba_quote') else '') + '</div>'
+             if x.get('kba') and x['kba'] != 'unknown' else '') + f'<div class="c">{srcs}</div></div></div>')
 
 
 def sig_card(s):
