@@ -3,7 +3,8 @@
 Three readings in a row missed a lab's own post (AISI 4 Aug, OpenAI 18 Aug and 23 Oct). This lists every post on the
 pages below that is neither cited by a ledger source nor marked reviewed, and exits 1 while any is left.
   python3 tools/sweep.py                 list unreviewed posts (rc 1 if any)
-  python3 tools/sweep.py --mark URL ...  mark posts reviewed (not ledger-worthy, or entered)
+  python3 tools/sweep.py --mark URL "why"  mark a post reviewed; the reason is required (since 1 Nov 2026):
+                                         why it is not ledger-worthy. Entered posts need no mark: a ledger source cites them.
   python3 tools/sweep.py --mark-all      first run only: mark everything currently listed as the baseline
 Reviewed URLs live in data/sweep_reviewed.txt (public: only URLs)."""
 import gzip, json, os, re, sys, urllib.request, xml.etree.ElementTree as ET
@@ -58,15 +59,17 @@ def items():
 
 
 def main():
-    reviewed = set(norm(l) for l in open(REVIEWED).read().split()) if os.path.exists(REVIEWED) else set()
+    reviewed = set(norm(l.split('\t')[0].strip()) for l in open(REVIEWED) if l.strip()) if os.path.exists(REVIEWED) else set()
     cited = set()
     for l in open(os.path.join(ROOT, 'data', 'events.jsonl')):
         if l.strip():
             cited |= {norm(s.get('url', '')) for s in json.loads(l).get('sources', [])}
     if sys.argv[1:2] == ['--mark']:
+        if len(sys.argv) != 4 or len(sys.argv[3].strip()) < 10 or sys.argv[3].startswith('http'):
+            print('usage: --mark URL "why it is not ledger-worthy" (one URL, a reason of 10+ chars)'); return 2
         with open(REVIEWED, 'a') as f:
-            f.write(''.join(u + '\n' for u in sys.argv[2:]))
-        print(f'marked {len(sys.argv) - 2}'); return 0
+            f.write(f"{sys.argv[2]}\t{sys.argv[3].strip()}\n")
+        print('marked 1'); return 0
     its, errors = items()
     todo = [i for i in its if norm(i[3]) not in reviewed and norm(i[3]) not in cited]
     if sys.argv[1:2] == ['--mark-all']:
