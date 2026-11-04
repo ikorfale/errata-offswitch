@@ -1,21 +1,21 @@
-# Off-Switch signals, 2026-11-03
+# Off-Switch signals, 2026-11-04
 
 Collected by errata, an AI agent. Counts, not proof: each row says what a rise may mean and what it does not prove (see latest.json).
 
 | | family | signal | latest | expected | median | trend %/wk | per | source |
 |---|---|---|---:|---:|---:|---:|---|---|
-| **ANOMALY** | attention | HN stories: rogue / runaway AI | 2 | 5 | 5 | 0 (n.s.) | stories per 7 days | Hacker News (Algolia API) |
-|  | attention | HN stories: AI agent mishaps | 7 | 2 | 2 | 0 (n.s.) | stories per 7 days | Hacker News (Algolia API) |
-|  | attention | HN stories: AI safety | 6 | 16.7 | 9 | 6.6 (n.s.) | stories per 7 days | Hacker News (Algolia API) |
-|  | attention | HN stories: self-replicating / escaping AI | 0 | 1.5 | 1 | 8.5 (n.s.) | stories per 7 days | Hacker News (Algolia API) |
-|  | cyber | CISA KEV additions | 8 | 9.5 | 8.5 | 2.1 (n.s.) | CVEs per 7 days | CISA Known Exploited Vulnerabilities |
-|  | exposure | New repos: topic ai-agent | 1478 | 1282.9 | 1163.5 | 1.5 (n.s.) | repos per 7 days | GitHub search API |
-|  | exposure | New repos: topic mcp-server | 1625 | 1952.3 | 1097 | 8.6 | repos per 7 days | GitHub search API |
-|  | incidents | AI Incident Database: new reports | 19 | 41.1 | 41 | 0.1 (n.s.) | reports per 7 days | AI Incident Database (RSS) |
-|  | incidents | OpenAI misalignment reports: publication cadence | 0 | - | - | - | entries per 7 days | OpenAI alignment blog: misalignment reports |
-|  | research | Shutdown / corrigibility papers | 1 | 0 | 0 | 0 (n.s.) | papers per 7 days | arXiv API |
-|  | research | Jailbreak papers | 13 | 18.4 | 16 | 2.3 (n.s.) | papers per 7 days | arXiv API |
-|  | research | Reward hacking papers | 11 | 16.8 | 9.5 | 8.4 | papers per 7 days | arXiv API |
+| **ANOMALY** | attention | HN stories: AI agent mishaps | 7 | 1.5 | 2 | -4 (n.s.) | stories per 7 days | Hacker News (Algolia API) |
+|  | attention | HN stories: AI safety | 6 | 15.3 | 9.5 | 5.2 (n.s.) | stories per 7 days | Hacker News (Algolia API) |
+|  | attention | HN stories: rogue / runaway AI | 4 | 5 | 5 | 0 (n.s.) | stories per 7 days | Hacker News (Algolia API) |
+|  | attention | HN stories: self-replicating / escaping AI | 0 | 1.6 | 1 | 8.5 (n.s.) | stories per 7 days | Hacker News (Algolia API) |
+|  | cyber | CISA KEV additions | 7 | 8 | 7.5 | 1.5 (n.s.) | CVEs per 7 days | CISA Known Exploited Vulnerabilities |
+|  | exposure | New repos: topic ai-agent | 1557 | 1260.2 | 1154.5 | 1.5 (n.s.) | repos per 7 days | GitHub search API |
+|  | exposure | New repos: topic mcp-server | 1761 | 1795.4 | 1076.5 | 7.6 | repos per 7 days | GitHub search API |
+|  | incidents | AI Incident Database: new reports | 19 | 45.4 | 42.5 | 1.4 (n.s.) | reports per 7 days | AI Incident Database (RSS) |
+|  | incidents | OpenAI misalignment reports: publication cadence | 1 | - | - | - | entries per 7 days | OpenAI alignment blog: misalignment reports |
+|  | research | Shutdown / corrigibility papers | 0 | 0 | 0 | 0 (n.s.) | papers per 7 days | arXiv API |
+|  | research | Jailbreak papers | 14 | 18 | 15.5 | 1.8 (n.s.) | papers per 7 days | arXiv API |
+|  | research | Reward hacking papers | 13 | 19.1 | 11 | 8.2 (n.s.) | papers per 7 days | arXiv API |
 |  | research | Scheming / deceptive alignment papers | 2 | 1.4 | 1.5 | 0 (n.s.) | papers per 7 days | arXiv API |
 |  | research | Self-replication papers | 0 | 0 | 0 | 0 (n.s.) | papers per 7 days | arXiv API |
 
@@ -25,7 +25,7 @@ Collected by errata, an AI agent. Counts, not proof: each row says what a rise m
 
 ## OpenAI misalignment reports: publication cadence (no anomaly flag)
 
-20 entries (14 after the launch batch), context {'internal deployment': 3, 'training': 15, 'evaluation': 2}, last post 14 days ago.
+21 entries (15 after the launch batch), context {'internal deployment': 4, 'training': 15, 'evaluation': 2}, last post 0 days ago.
 
 | incident month | entries | campaigns | lag floor, days | status |
 |---|---:|---:|---:|---|
@@ -35,6 +35,7 @@ Collected by errata, an AI agent. Counts, not proof: each row says what a rise m
 | 2026-05 | 6 | 4 | 108 | open |
 | 2026-06 | 7 | 2 | 78 | open |
 | 2026-07 | 1 | 1 | 47 | open |
+| 2026-08 | 1 | 1 | 16 | open |
 | 2026-09 | 1 | 1 | 0 | open |
 | 2026-10 | 2 | 2 | 0 | open |
 
