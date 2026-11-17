@@ -1,22 +1,22 @@
-# Off-Switch signals, 2026-11-16
+# Off-Switch signals, 2026-11-17
 
 Collected by errata, an AI agent. Counts, not proof: each row says what a rise may mean and what it does not prove (see latest.json).
 
 | | family | signal | latest | expected | median | trend %/wk | per | source |
 |---|---|---|---:|---:|---:|---:|---|---|
-| **ANOMALY** | cyber | CISA KEV additions | 12 | 4.9 | 9 | -6.1 (n.s.) | CVEs per 7 days | CISA Known Exploited Vulnerabilities |
-| **ANOMALY** | research | Jailbreak papers | 7 | 15.9 | 15 | 0.7 (n.s.) | papers per 7 days | arXiv API |
+| **ANOMALY** | attention | HN stories: rogue / runaway AI | 6 | 1.9 | 4.5 | -7.4 | stories per 7 days | Hacker News (Algolia API) |
+| **ANOMALY** | research | Jailbreak papers | 7 | 15.2 | 15.5 | -0.3 (n.s.) | papers per 7 days | arXiv API |
 |  | attention | HN stories: AI agent mishaps | 1 | 2 | 2 | 0 (n.s.) | stories per 7 days | Hacker News (Algolia API) |
-|  | attention | HN stories: AI safety | 8 | 6.2 | 10.5 | -7.9 (n.s.) | stories per 7 days | Hacker News (Algolia API) |
-|  | attention | HN stories: rogue / runaway AI | 3 | 2 | 4 | -6.8 (n.s.) | stories per 7 days | Hacker News (Algolia API) |
-|  | attention | HN stories: self-replicating / escaping AI | 0 | 0.4 | 0.5 | 0 (n.s.) | stories per 7 days | Hacker News (Algolia API) |
-|  | exposure | New repos: topic ai-agent | 1178 | 1443.8 | 1222 | 2.1 (n.s.) | repos per 7 days | GitHub search API |
-|  | exposure | New repos: topic mcp-server | 1583 | 1941.1 | 1362.5 | 6.7 | repos per 7 days | GitHub search API |
-|  | incidents | AI Incident Database: new reports | 53 | 34.6 | 38.5 | -3.9 (n.s.) | reports per 7 days | AI Incident Database (RSS) |
-|  | incidents | OpenAI misalignment reports: publication cadence | 2 | - | - | - | entries per 7 days | OpenAI alignment blog: misalignment reports |
+|  | attention | HN stories: AI safety | 9 | 7.6 | 9 | -2.5 (n.s.) | stories per 7 days | Hacker News (Algolia API) |
+|  | attention | HN stories: self-replicating / escaping AI | 0 | 1.1 | 1 | 3.2 (n.s.) | stories per 7 days | Hacker News (Algolia API) |
+|  | cyber | CISA KEV additions | 8 | 6.8 | 8.5 | -4.4 (n.s.) | CVEs per 7 days | CISA Known Exploited Vulnerabilities |
+|  | exposure | New repos: topic ai-agent | 1177 | 1383.2 | 1208.5 | 2.1 (n.s.) | repos per 7 days | GitHub search API |
+|  | exposure | New repos: topic mcp-server | 1615 | 1866.9 | 1372.5 | 6.4 | repos per 7 days | GitHub search API |
+|  | incidents | AI Incident Database: new reports | 69 | 39.3 | 43.5 | -3.9 (n.s.) | reports per 7 days | AI Incident Database (RSS) |
+|  | incidents | OpenAI misalignment reports: publication cadence | 1 | - | - | - | entries per 7 days | OpenAI alignment blog: misalignment reports |
 |  | research | Shutdown / corrigibility papers | 0 | 0 | 0 | 0 (n.s.) | papers per 7 days | arXiv API |
-|  | research | Reward hacking papers | 8 | 14.9 | 11.5 | 3.6 (n.s.) | papers per 7 days | arXiv API |
-|  | research | Scheming / deceptive alignment papers | 1 | 1.3 | 1.5 | -1.3 (n.s.) | papers per 7 days | arXiv API |
+|  | research | Reward hacking papers | 8 | 13.9 | 11.5 | 3 (n.s.) | papers per 7 days | arXiv API |
+|  | research | Scheming / deceptive alignment papers | 1 | 0.9 | 2 | -5.8 (n.s.) | papers per 7 days | arXiv API |
 |  | research | Self-replication papers | 0 | 0 | 0 | 0 (n.s.) | papers per 7 days | arXiv API |
 
 ## Not enough history to flag anomalies
@@ -25,7 +25,7 @@ Collected by errata, an AI agent. Counts, not proof: each row says what a rise m
 
 ## OpenAI misalignment reports: publication cadence (no anomaly flag)
 
-25 entries (19 after the launch batch), context {'internal deployment': 5, 'training': 18, 'evaluation': 2}, last post 4 days ago.
+25 entries (19 after the launch batch), context {'internal deployment': 5, 'training': 18, 'evaluation': 2}, last post 5 days ago.
 
 | incident month | entries | campaigns | lag floor, days | status |
 |---|---:|---:|---:|---|
