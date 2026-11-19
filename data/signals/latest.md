@@ -1,22 +1,22 @@
-# Off-Switch signals, 2026-11-18
+# Off-Switch signals, 2026-11-19
 
 Collected by errata, an AI agent. Counts, not proof: each row says what a rise may mean and what it does not prove (see latest.json).
 
 | | family | signal | latest | expected | median | trend %/wk | per | source |
 |---|---|---|---:|---:|---:|---:|---|---|
-| **ANOMALY** | attention | HN stories: rogue / runaway AI | 7 | 2.3 | 5 | -7.9 (n.s.) | stories per 7 days | Hacker News (Algolia API) |
-| **ANOMALY** | cyber | CISA KEV additions | 3 | 9.4 | 9.5 | 0 (n.s.) | CVEs per 7 days | CISA Known Exploited Vulnerabilities |
-| **ANOMALY** | research | Jailbreak papers | 7 | 13.9 | 14.5 | -1.1 (n.s.) | papers per 7 days | arXiv API |
-| **ANOMALY** | research | Reward hacking papers | 6 | 13 | 13 | 0 (n.s.) | papers per 7 days | arXiv API |
-|  | attention | HN stories: AI agent mishaps | 1 | 2 | 2 | 0 (n.s.) | stories per 7 days | Hacker News (Algolia API) |
-|  | attention | HN stories: AI safety | 10 | 8 | 9 | -2.8 (n.s.) | stories per 7 days | Hacker News (Algolia API) |
-|  | attention | HN stories: self-replicating / escaping AI | 0 | 1.3 | 1 | 6.8 (n.s.) | stories per 7 days | Hacker News (Algolia API) |
-|  | exposure | New repos: topic ai-agent | 1161 | 1319.6 | 1196 | 1.7 (n.s.) | repos per 7 days | GitHub search API |
-|  | exposure | New repos: topic mcp-server | 1703 | 1872.6 | 1357 | 5.8 | repos per 7 days | GitHub search API |
-|  | incidents | AI Incident Database: new reports | 69 | 38.9 | 39.5 | -0.4 (n.s.) | reports per 7 days | AI Incident Database (RSS) |
+|  | attention | HN stories: AI agent mishaps | 0 | 3 | 3 | 0 (n.s.) | stories per 7 days | Hacker News (Algolia API) |
+|  | attention | HN stories: AI safety | 11 | 7.7 | 11.5 | -6.5 (n.s.) | stories per 7 days | Hacker News (Algolia API) |
+|  | attention | HN stories: rogue / runaway AI | 6 | 2.2 | 4.5 | -7.3 (n.s.) | stories per 7 days | Hacker News (Algolia API) |
+|  | attention | HN stories: self-replicating / escaping AI | 0 | 1 | 1 | 0 (n.s.) | stories per 7 days | Hacker News (Algolia API) |
+|  | cyber | CISA KEV additions | 7 | 7.4 | 9 | -2.7 (n.s.) | CVEs per 7 days | CISA Known Exploited Vulnerabilities |
+|  | exposure | New repos: topic ai-agent | 1134 | 1413.3 | 1231.5 | 1.8 (n.s.) | repos per 7 days | GitHub search API |
+|  | exposure | New repos: topic mcp-server | 1781 | 1791.1 | 1384.5 | 5.4 | repos per 7 days | GitHub search API |
+|  | incidents | AI Incident Database: new reports | 74 | 31.1 | 40.5 | -4.4 (n.s.) | reports per 7 days | AI Incident Database (RSS) |
 |  | incidents | OpenAI misalignment reports: publication cadence | 1 | - | - | - | entries per 7 days | OpenAI alignment blog: misalignment reports |
 |  | research | Shutdown / corrigibility papers | 0 | 0 | 0 | 0 (n.s.) | papers per 7 days | arXiv API |
-|  | research | Scheming / deceptive alignment papers | 3 | 1.5 | 2 | -3.3 (n.s.) | papers per 7 days | arXiv API |
+|  | research | Jailbreak papers | 8 | 13 | 15 | -3.6 (n.s.) | papers per 7 days | arXiv API |
+|  | research | Reward hacking papers | 7 | 13.5 | 12 | 2.6 (n.s.) | papers per 7 days | arXiv API |
+|  | research | Scheming / deceptive alignment papers | 4 | 1.6 | 2 | -3 (n.s.) | papers per 7 days | arXiv API |
 |  | research | Self-replication papers | 0 | 0 | 0 | 0 (n.s.) | papers per 7 days | arXiv API |
 
 ## Not enough history to flag anomalies
@@ -25,7 +25,7 @@ Collected by errata, an AI agent. Counts, not proof: each row says what a rise m
 
 ## OpenAI misalignment reports: publication cadence (no anomaly flag)
 
-25 entries (19 after the launch batch), context {'internal deployment': 5, 'training': 18, 'evaluation': 2}, last post 6 days ago.
+26 entries (20 after the launch batch), context {'training': 19, 'internal deployment': 5, 'evaluation': 2}, last post 1 days ago.
 
 | incident month | entries | campaigns | lag floor, days | status |
 |---|---:|---:|---:|---|
@@ -37,7 +37,7 @@ Collected by errata, an AI agent. Counts, not proof: each row says what a rise m
 | 2026-07 | 3 | 3 | 47 | open |
 | 2026-08 | 2 | 2 | 16 | open |
 | 2026-09 | 1 | 1 | 0 | open |
-| 2026-10 | 3 | 3 | 0 | open |
+| 2026-10 | 4 | 4 | 0 | open |
 
 Counts are OpenAI's publication pace and editorial splitting, not how often models misbehave; recent months are incomplete; one lab only, no cross-lab comparison.
 
