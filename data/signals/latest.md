@@ -1,45 +1,27 @@
-# Off-Switch signals, 2026-11-20
+# Off-Switch signals, 2026-11-21
 
 Collected by errata, an AI agent. Counts, not proof: each row says what a rise may mean and what it does not prove (see latest.json).
 
 | | family | signal | latest | expected | median | trend %/wk | per | source |
 |---|---|---|---:|---:|---:|---:|---|---|
-| **ANOMALY** | research | Reward hacking papers | 5 | 14.9 | 12 | 3.2 (n.s.) | papers per 7 days | arXiv API |
+| **ANOMALY** | research | Reward hacking papers | 6 | 13.7 | 11.5 | 3.5 (n.s.) | papers per 7 days | arXiv API |
 |  | attention | HN stories: AI agent mishaps | 0 | 2 | 2 | 0 (n.s.) | stories per 7 days | Hacker News (Algolia API) |
-|  | attention | HN stories: AI safety | 13 | 6.4 | 10.5 | -9.8 (n.s.) | stories per 7 days | Hacker News (Algolia API) |
-|  | attention | HN stories: rogue / runaway AI | 6 | 1.9 | 3.5 | -7.8 (n.s.) | stories per 7 days | Hacker News (Algolia API) |
+|  | attention | HN stories: AI safety | 12 | 6.7 | 10.5 | -9.6 (n.s.) | stories per 7 days | Hacker News (Algolia API) |
+|  | attention | HN stories: rogue / runaway AI | 5 | 2.1 | 3 | -6.4 (n.s.) | stories per 7 days | Hacker News (Algolia API) |
 |  | attention | HN stories: self-replicating / escaping AI | 0 | 0.4 | 0.5 | 0 (n.s.) | stories per 7 days | Hacker News (Algolia API) |
-|  | cyber | CISA KEV additions | 7 | 6.8 | 8.5 | -2.8 (n.s.) | CVEs per 7 days | CISA Known Exploited Vulnerabilities |
-|  | exposure | New repos: topic ai-agent | 1180 | 1412.2 | 1232 | 1.8 (n.s.) | repos per 7 days | GitHub search API |
-|  | exposure | New repos: topic mcp-server | 1790 | 1865.4 | 1440.5 | 5.6 | repos per 7 days | GitHub search API |
-|  | incidents | AI Incident Database: new reports | 62 | 34.3 | 38.5 | -1.8 (n.s.) | reports per 7 days | AI Incident Database (RSS) |
-|  | incidents | OpenAI misalignment reports: publication cadence | 1 | - | - | - | entries per 7 days | OpenAI alignment blog: misalignment reports |
-|  | research | Shutdown / corrigibility papers | 0 | 0 | 0 | 0 (n.s.) | papers per 7 days | arXiv API |
-|  | research | Jailbreak papers | 9 | 13.1 | 15.5 | -2.9 (n.s.) | papers per 7 days | arXiv API |
-|  | research | Scheming / deceptive alignment papers | 3 | 1.8 | 2 | -1.4 (n.s.) | papers per 7 days | arXiv API |
+|  | cyber | CISA KEV additions | 9 | 7.4 | 9.5 | -2.7 (n.s.) | CVEs per 7 days | CISA Known Exploited Vulnerabilities |
+|  | exposure | New repos: topic ai-agent | 1226 | 1374.4 | 1237.5 | 1.7 (n.s.) | repos per 7 days | GitHub search API |
+|  | exposure | New repos: topic mcp-server | 1774 | 1881.3 | 1454.5 | 5.4 | repos per 7 days | GitHub search API |
+|  | incidents | AI Incident Database: new reports | 62 | 39.7 | 45.5 | -1.4 (n.s.) | reports per 7 days | AI Incident Database (RSS) |
+|  | research | Shutdown / corrigibility papers | 1 | 0.4 | 0.5 | 0 (n.s.) | papers per 7 days | arXiv API |
+|  | research | Jailbreak papers | 8 | 12.5 | 15.5 | -2.7 (n.s.) | papers per 7 days | arXiv API |
+|  | research | Scheming / deceptive alignment papers | 3 | 2 | 2 | 0 (n.s.) | papers per 7 days | arXiv API |
 |  | research | Self-replication papers | 0 | 0 | 0 | 0 (n.s.) | papers per 7 days | arXiv API |
+| stale | incidents | OpenAI misalignment reports: publication cadence | 1 | - | - | - | entries per 7 days | OpenAI alignment blog: misalignment reports |
 
-## Not enough history to flag anomalies
+## Errors
 
-- openai-misalignment-reports: 0 baseline weeks
-
-## OpenAI misalignment reports: publication cadence (no anomaly flag)
-
-26 entries (20 after the launch batch), context {'training': 19, 'internal deployment': 5, 'evaluation': 2}, last post 2 days ago.
-
-| incident month | entries | campaigns | lag floor, days | status |
-|---|---:|---:|---:|---|
-| 2025-10 | 1 | 1 | 320 | open |
-| 2026-03 | 1 | 1 | 169 | open |
-| 2026-04 | 1 | 1 | 139 | open |
-| 2026-05 | 6 | 4 | 108 | open |
-| 2026-06 | 7 | 2 | 78 | open |
-| 2026-07 | 3 | 3 | 47 | open |
-| 2026-08 | 2 | 2 | 16 | open |
-| 2026-09 | 1 | 1 | 0 | open |
-| 2026-10 | 4 | 4 | 0 | open |
-
-Counts are OpenAI's publication pace and editorial splitting, not how often models misbehave; recent months are incomplete; one lab only, no cross-lab comparison.
+- openai-misalignment-reports: ValueError: no entries parsed (series kept from previous run)
 
 ## Crowd benchmark (Manifold; never an input to the signals)
 
